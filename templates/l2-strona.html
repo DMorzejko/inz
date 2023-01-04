@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="static/l2-style.css">
+
+              {{ css|safe }}
+        {% if title %}
+        <title>{{ title }}</title>
+        {% else %}
+        <title>Kropelka</title>
+        {% endif %}
+    </head>
+    <body class="body">
+        {{ naglowek|safe }}
+
+        <!-- uklad 2 kolumn - menu i obszar glowny -->
+        <div class="row">
+
+            <div class="column right">
+                <div class="tresc">
+                    {{ tresc|safe }}
+                </div>
+            </div>
+        </div>
+        <!-- uklad 2 kolumn - menu i obszar glowny -->
+
+        {{ stopka|safe }}
+    </body>
+</html>

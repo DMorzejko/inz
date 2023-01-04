@@ -1,0 +1,21 @@
+<!-- Historia pobrań -->
+<div class="form">
+    <div class="form-tytul">
+        <div class="ikona2"></div>
+        <span class="tytul2">Historia pobrań</span>
+    </div>
+    <form action="/historia" method="get" id="formularz_historia">
+        <div class="gora">
+            <div class="przerwa"></div>
+                <label for="data1"><span class="tekst1">Od:</span></label>
+                <input type="date" class="pole1" id="data1" name="data1" placeholder="dd-mm-rrrr" pattern="\d{2}-\d{2}-\d{4}" minlength="10" maxlength="10" required value="{{ d1 }}"><br><br>
+            <div class="przerwa"></div>
+                <label for="data2"><span class="tekst1">Do:</span></label>
+                <input type="date" class="pole1" id="data2" name="data2" placeholder="dd-mm-rrrr" pattern="\d{2}-\d{2}-\d{4}" minlength="10" maxlength="10" required value="{{ d2 }}"><br><br>
+        </div>
+        <button id="button_pokaz" type="submit" class="zapisz">Pokaż</button>
+    </form>
+</div>
+<!-- Historia pobrań -->
+
+

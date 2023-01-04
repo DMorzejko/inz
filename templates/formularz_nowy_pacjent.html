@@ -1,0 +1,67 @@
+<!-- FORMULARZ -->
+<div class="form">
+    <div class="form-tytul">
+        <div class="ikona2"></div>
+        <span class="tytul2">Dodaj krwiodawcę</span>
+    </div>
+    <form action="/nowy_pacjent_odbierz" method="post" id="formularz_nowy_pacjent">
+        <div class="gora">
+            <div class="przerwa"></div>
+            <div class="lewa">
+                <label for="imie"><span class="tekst1">Imię</span></label>
+                <input type="text" class="pole1" id="imie" name="imie" required><br><br>
+
+                <label for="data"><span class="tekst1">Data ur.</span></label>
+                <input type="date" class="pole1" id="data" name="data" placeholder="dd-mm-rrrr" pattern="\d{2}-\d{2}-\d{4}" minlength="10" maxlength="10" required><br><br>
+
+                <label for="plec"><span class="tekst1">Płeć</span></label>
+                <!--<input type="text" class="pole1" id="plec" name="plec"><br><br>-->
+                <select id="plec" name="plec" class="pole1a" required>
+                    <option disabled selected value></option>
+                    <option value="K">Kobieta</option>
+                    <option value="M">Mężczyzna</option>
+                </select><br><br>
+
+                <!--
+                <label for="waga"><span class="tekst1">Waga</span></label>
+                <input type="text" class="pole1" id="waga" name="waga"><br><br>
+                -->
+            </div>
+            <div class="przerwa"></div>
+            <div class="prawa">
+                <!--<label for="nazwisko"><span class="tekst1">Nazwisko</span></label>-->
+                <div class="tekst1"><label for="nazwisko">Nazwisko</label></div>
+                <input type="text" class="pole1" id="nazwisko" name="nazwisko" required><br><br>
+
+                <!--
+                <label for="telefon"><span class="tekst1">Tel.</span></label>
+                <input type="text" class="pole1" id="telefon" name="telefon" placeholder="+48 889 232 997"><br><br>
+                -->
+
+                <label for="pesel"><span class="tekst1">Pesel</span></label>
+                <input type="text" class="pole1" id="pesel" name="pesel" pattern="\d{11}" minlength="11" maxlength="11"><br><br>
+
+                <label for="grupakrwi_id"><span class="tekst1">Grupa krwi</span></label>
+                <!--<input type="text" class="pole1" id="grupakrwi" name="grupakrwi"><br><br>-->
+                <select id="grupakrwi_id" name="grupakrwi_id" class="pole1a" required>
+                    <option disabled selected value></option>
+                    {{ grupy_krwi|safe }}
+                </select><br><br>
+            </div>
+            <div class="przerwa"></div>
+        </div>
+        <div class="dol">
+            <label for="adres"><span class="tekst2">Adres</span></label>
+            <input type="text" class="pole2" id="adres" name="adres"><br><br>
+
+            <label for="opis"><span class="tekst2">Dodatkowy<br>opis</span></label>
+            <!--<input type="text" class="pole2" id="dodatkowe" name="dodatkowe"><br><br>-->
+            <!--<textarea class="pole3" id="dodatkowe" name="dodatkowe" rows="8" cols="50"></textarea><br><br>-->
+            <textarea class="pole3" id="opis" name="opis"></textarea><br><br>
+        </div>
+
+        <button class="reset" type="reset">Reset</button>
+        <button name="button_zapisz" id="button_zapisz" type="submit" class="zapisz">Zapisz</button>
+    </form>
+</div>
+<!-- Formularz -->

@@ -1,0 +1,262 @@
+/* FORMULARZ */
+.form {
+    /* background-color: yellow; */
+    background-color: #E5E5E5;
+    width: 96%;
+    /* margin-left: 26%; */
+    padding: 2%;
+}
+
+.form-tytul {
+    /* background-color: orange; */
+    width: 97%;
+    padding-left: 3%;
+    margin-bottom: 3%;
+}
+
+.ikona2 {
+    width: 40px;
+    height: 40px;
+    background-image: url(grafiki/pobierz_krew.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    float: left;
+}
+
+.tytul2 {
+    color: rgba(217, 13, 13, 1);
+    height: 44px;
+    text-align: left;
+    font-size: 36px;
+    letter-spacing: 0;
+    margin-left: 10px;
+}
+
+.gora {
+    /* background-color: orange; */
+    width: 100%;
+    float: none;
+}
+
+/* Wyczyść układ 2 kolum, gdy div się skończy */
+.gora:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.lewa {
+    /* background-color: red; */
+    width: 44%;
+    float: left;
+}
+
+.prawa {
+    /* background-color: green; */
+    width: 44%;
+    float: left;
+}
+
+.przerwa {
+    /* background-color: brown; */
+    width: 4%;
+    height: 10px;
+    float: left;
+}
+
+.dol {
+    margin-top: 1%;
+    width: 92%;
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-bottom: 1%;
+    /* background-color: blue; */
+    float: none;
+}
+
+.tekst1 {
+    color: rgba(0, 0, 0, 1);
+    width: 15%;
+    margin-right: 1%;
+    float: left;
+    /* min-width: 200px; */
+    /* max-width: 200px; */
+    height: 50px;
+    line-height: 50px;
+    text-align: left;
+    font-size: 28px;
+    letter-spacing: 0;
+    /* background-color: magenta; */
+}
+
+.pole1 {
+    /* width: 300px; */
+    width: 56%;
+    /* min-width: 55%; */
+    /* max-width: 55%; */
+    /* margin-right: 5%; */
+    padding-left: 2%;
+    height: 50px;
+    border: 2px solid #AC9233;
+    border-radius: 20px;
+    font-size: 20px;
+    background-color: white;
+}
+
+.pole1:focus {
+    outline: none;
+}
+
+.pole1a {
+    /* width: 59%; */
+    width: 70%;
+    height: 56px;
+    padding-left: 2%;
+    border: 2px solid #AC9233;
+    border-radius: 20px;
+    font-size: 20px;
+    background-color: white;
+}
+
+.pole1a:focus {
+    outline: none;
+}
+
+.tekst2 {
+    color:rgba(0, 0, 0, 1);
+    width: 17%;
+    margin-right: 2%;
+    float: left;
+    /* min-width: 200px; */
+    /* max-width: 200px; */
+    height:50px;
+    line-height: 50px;
+    text-align: left;
+    font-size: 28px;
+    letter-spacing: 0;
+    /* background-color: magenta; */
+}
+
+.pole2 {
+    /* width: 750px; */
+    width: 79%;
+    padding-left: 1%;
+    height: 50px;
+    border: 2px solid #AC9233;
+    border-radius: 20px;
+    font-size: 20px;
+}
+
+.pole2:focus {
+    outline: none;
+}
+
+.pole3 {
+    /* width: 750px; */
+    padding-left: 1%;
+    padding-right: 1%;
+    width: 78%;
+    height: 200px;
+    border: 2px solid #AC9233;
+    border-radius: 20px;
+    font-size: 20px;
+}
+
+.pole3:focus {
+    outline: none;
+}
+
+.pole4 {
+
+    width: 30%;
+    padding-left: 1%;
+    height: 50px;
+    border: 2px solid #AC9233;
+    border-radius: 20px;
+    font-size: 20px;
+}
+
+.pole4:focus {
+    outline: none;
+}
+
+.zapisz {
+    /* width:156px; */
+    width: 15%;
+    height: 56px;
+    line-height: 50px;
+    border: 3px solid green;
+    border-radius: 20px;
+    color: green;
+    font-size: 25px;
+    font-style: italic;
+    padding: 0;
+    background: none;
+}
+
+.zapisz:hover {
+    background-color: lightgreen;
+    cursor: pointer;
+}
+
+.anuluj {
+    /* width:150px; */
+    width: 15%;
+    height: 50px;
+    line-height: 50px;
+    border: 3px solid red;
+    border-radius: 20px;
+    color: red;
+    text-align: center;
+    font-size: 25px;
+    font-style: italic;
+    float: left;
+    margin-left: 60%;
+    margin-right: 5%;
+    padding: 0;
+}
+
+.anuluj:hover {
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
+.reset {
+    /* width:156px; */
+    width: 15%;
+    background: none;
+    height: 56px;
+    line-height: 50px;
+    border: 3px solid red;
+    border-radius: 20px;
+    color: red;
+    font-size: 25px;
+    font-style: italic;
+    float: left;
+    padding: 0;
+
+}
+
+.reset:hover {
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
+.loguj {
+    /* width:156px; */
+    width: 15%;
+    height: 56px;
+    line-height: 50px;
+    border: 3px solid green;
+    border-radius: 20px;
+    color: green;
+    font-size: 25px;
+    font-style: italic;
+    padding: 0;
+    background: none;
+}
+
+.loguj:hover {
+    background-color: lightgreen;
+    cursor: pointer;
+}

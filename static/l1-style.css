@@ -1,0 +1,46 @@
+.naglowek {
+    background-color: red;
+    margin-bottom: 20px;
+}
+
+.menu {
+    background-color: yellow;
+    min-height: 400px;
+}
+
+.tresc {
+    background-color: lightblue;
+    min-height: 400px;
+}
+
+.stopka {
+    margin-top: 20px;
+    background-color: green;
+}
+
+/* Układ 2 kolum obok siebie - właściwość float */
+.column {
+    float: left;
+    padding: 1%;
+}
+
+.left {
+    width: 20%;
+}
+
+.right {
+    width: 75%;
+}
+
+/* Wyczyść układ 2 kolum, gdy div się skończy */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+h1 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0;
+}

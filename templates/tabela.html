@@ -1,0 +1,26 @@
+<!-- Stany krwi -->
+<div class="form">
+    <div class="form-tytul">
+        <div class="ikona2"></div>
+        <span class="tytul2">Stany krwi</span>
+    </div>
+    <form action="/stany" method="get" id="formularz_stany">
+        <div class="gora">
+            <div class="przerwa"></div>
+            <!--<div class="lewa">-->
+                <label for="oddzial_id"><span class="tekst1">Oddział</span></label>
+                <select id="oddzial_id" name="oddzial_id" class="pole1a">
+                    {{ oddzialy|safe }}
+                </select><br><br>
+            <!--</div>-->
+        </div>
+        <!--<button class="reset" type="reset">Reset</button>-->
+        <button id="button_pokaz" type="submit" class="zapisz">Pokaż</button>
+    </form>
+
+
+    <!-- If zmienna get, to wyświetl nazwę i ID oddziału -->
+
+
+</div>
+<!-- Stany krwi -->
