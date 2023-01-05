@@ -7,7 +7,6 @@
 /* Naglowek */
 .naglowek {
     width: 100%;
-    background-color: #292929;
 }
 
 .nag {
@@ -24,7 +23,6 @@
 
 .td-nag {
     padding: 0;
-c
     text-align: center;
 }
 
@@ -38,63 +36,50 @@ c
     text-align: left;
 }
 
-.td-n3 { }
+.td-n3 {
+
+    }
 
 .td-n4 {
-    width: 60px;
+    width: 145px;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 .td-n5 {
-    width: 200px;
+    width: 100px;
     padding-right: 10px;
+    padding-left: 10px;
 }
 
 .i_logo {
     align-self: center;
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
 }
 
-.i_chat {
-    align-self: center;
-    width: 50px;
-    height: 50px;
-}
-
-.i_user {
-    align-self: center;
-    width: 75px;
-    height: 75px;
-    border: 2px solid rgba(213, 107, 47, 1);
-    border-radius: 50%;
-}
 
 .naglowek_tekst {
-    color: rgba(160,160,160, 0.5);
+    color: #888888;
     font-family: 'Poppins';
     text-align: center;
     align-self: center;
-    font-size: 32px;
+    font-size: 26px;
+
 }
 
-.rckik {
+a:link, a:visited, a:hover, a:active {
+text-decoration: none;
+}
+
+.serwis {
     color: #888888;
     align-self: center;
     font-size: 16px;
 }
 
-.linia1 {
-    width: 100%;
-    height: 0px;
-    border: 1px #292929;
-    border-left: 0;
-    border-right: 0;
-}
-
 /* Główny obszar strony */
 .tresc {
-    /* background-color: lightblue; */
-    /* background-color: transparent; */
     background-color: #292929;
     min-height: 400px;
     color: #888888;
@@ -107,47 +92,7 @@ c
     letter-spacing: 0;
 }
 
-/* Kontener dla 2 kolumn */
-.row {
-    /* https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
-    display: flex;
-}
 
-/* Układ 2 kolum obok siebie - właściwość float */
-.column { /* wspólne dla obu kolumn */
-    float: left;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-/* Lewa - menu */
-.left {
-    width: 300px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-/* Prawa - obszar główny */
-.right {
-    min-width: 100px;
-    margin-right: 20px;
-    flex-grow: 1;
-}
-
-.temp {
-    width: 50%;
-    height: 1000px;
-    background-color: red;
-}
-
-/* Wyczyść układ 2 kolum, gdy div się skończy */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
 
 h1 {
     padding-top: 20px;
@@ -162,6 +107,8 @@ h1 {
     width: 100%;
     height: 50px;
     text-align: center;
+    position: absolute;
+    bottom: 0;
 }
 
 .wersja {
@@ -175,8 +122,3 @@ h1 {
     letter-spacing: 0;
 }
 
-.linia3 {
-    background-color: #292929;
-    width: 100%;
-    height: 2px;
-}

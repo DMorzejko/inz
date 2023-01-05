@@ -35,7 +35,7 @@ def pobierz_krew(krwiodawca):
         # Wyswietl kolejne dane i pola formularza
         s2 += "<p>Tu będzie dalsza część fomularza... </p>\n";
 
-    s1 =  render_template('pobierz_krew.html',krwiodawcy=k_lista)
+    s1 =  render_template('projekt.html',krwiodawcy=k_lista)
     return s1 + s2
 
 def historia(data1, data2):
@@ -80,7 +80,7 @@ def historia(data1, data2):
         tabelka += "</table>\n"
         tabelka += "<!-- Tabelka historia -->\n"
 
-    s1 =  render_template('historia_pobran.html', d1=d1, d2=d2)
+    s1 =  render_template('mapa.html', d1=d1, d2=d2)
     return s1 + tabelka
 
 def badania():
@@ -132,7 +132,7 @@ def stany(oddzial):
             html += "<td>" + str(s[1]) + " ml</td>\n"
         html += "</tr>\n</table>\n"
 
-    szablon =  render_template('tabela.html',oddzialy=oddzialy_lista)
+    szablon =  render_template('edycja.html',oddzialy=oddzialy_lista)
     return szablon + html
 
 def o_projekcie():
@@ -172,4 +172,4 @@ def nowy_pacjent():
     gk_lista = ""
     for i in gk:
         gk_lista += "<option value=\"" + str(i[0]) + "\">" + i[1] +"</option>\n"
-    return render_template('formularz_nowy_pacjent.html', grupy_krwi=gk_lista)
+    return render_template('edycja.html', grupy_krwi=gk_lista)

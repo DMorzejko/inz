@@ -1,0 +1,24 @@
+<!-- Pobierz krew -->
+<div class="form">
+    <div class="form-tytul">
+        <div class="ikona2"></div>
+        <span class="tytul2">Pobierz krew</span>
+    </div>
+    <form action="/pobierz_krew" method="get" id="formularz_pobieranie">
+        <div class="gora">
+            <div class="przerwa"></div>
+            <!--<div class="lewa">-->
+                <label for="krwiodawca"><span class="tekst1">Krwiodawca</span></label>
+                <select id="krwiodawca" name="krwiodawca" class="pole1a">
+                    {{ krwiodawcy|safe }}
+                </select><br><br>
+            <!--</div>-->
+        </div>
+        <!--<button class="reset" type="reset">Reset</button>-->
+        <button id="button_pokaz" type="submit" class="zapisz">Wczytaj</button>
+    </form>
+
+
+
+</div>
+<!-- Pobierz krew -->

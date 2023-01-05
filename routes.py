@@ -8,31 +8,25 @@ from funkcje import *
 
 @routes.route('/logowanie')
 def W_logowanie():
-    return wyswietl(2, ["Logowanie", logowanie(), ['formularz_nowy_pacjent.css']])
+    return wyswietl(2, ["Logowanie", logowanie(), ['logowanie.css']])
 
 @routes.route('/nowy_pacjent')
 def W_nowy_pacjent():
-    return wyswietl(2, ["Dodaj krwiodawcę", nowy_pacjent(), ['formularz_nowy_pacjent.css']])
+    return wyswietl(2, ["Dodaj krwiodawcę", nowy_pacjent(), ['logowanie.css']])
 
-@routes.route('/pobierz_krew', methods = ['GET'])
-def W_pobierz_krew():
-    krwiodawca = request.args.get('krwiodawca')
-    return wyswietl(2, ["Pobierz krew", pobierz_krew(krwiodawca), ['pobierz_krew.css']])
+@routes.route('/projekt')
+def W_projekt():
+        return wyswietl(2, ["Logowanie", info(), ['pobierz_krew.css']])
 
-@routes.route('/historia', methods = ['GET'])
-def W_historia_pobran():
+@routes.route('/mapa', methods = ['GET'])
+def W_mapa():
     data1 = request.args.get('data1')
     data2 = request.args.get('data2')
-    return wyswietl(2, ["Historia pobrań", historia(data1, data2), ['historia_pobran.css']])
+    return wyswietl(2, ["Mapa", historia(data1, data2), ['historia_pobran.css']])
 
 @routes.route('/badania')
 def W_badania():
     return wyswietl(2, ["Wyniki badań", badania(), ['']])
-
-@routes.route('/tabela', methods = ['GET'])
-def W_stany():
-    oddzial = request.args.get('oddzial_id')
-    return wyswietl(2, ["Stany krwi", stany(oddzial), ['stany_krwi.css','tabelka_krwiodawcy.css']])
 
 @routes.route('/o_projekcie')
 def W_o_projekcie():
@@ -60,23 +54,21 @@ def W_nowy_pacjent_odbierz():
     html += "<a href=\"/krwiodawcy\">Zobacz</a><br><br>"
     html += "<a href=\"/nowy_pacjent\">Dodaj kolejny</a><br>"
 
-    return wyswietl(2, ["Nowy Pacjent", html, ['formularz_nowy_pacjent.css']])
+    return wyswietl(2, ["Nowy Pacjent", html, ['logowanie.css']])
 
-@routes.route('/krwiodawcy')
-def W_krwiodawcy():
-    return wyswietl(2, ["Krwiodawcy", krwiodawcy(), ['tabelka_krwiodawcy.css']])
+@routes.route('/tabela')
+def W_tabela():
+    return wyswietl(2, ["Tabela", tabela(), ['tabelka_krwiodawcy.css']])
 
 @routes.route('/poziomy')
 def W_poziomy():
-    return wyswietl(2, ["Poziomy", poziomy(), ['formularz_nowy_pacjent.css']])
+    return wyswietl(2, ["Poziomy", poziomy(), ['logowanie.css']])
 
 @routes.route('/kontakt')
 def W_funkcja2():
     return wyswietl(2, ["Kontakt", kontakt(), ['']])
 
-@routes.route('/info')
-def W_funkcja3():
-    return wyswietl(2, ["Info", info(), ['']])
+
 
 @routes.route('/interfejs')
 def W_interfejs():

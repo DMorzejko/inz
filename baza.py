@@ -9,11 +9,11 @@ import mysql.connector
 
 
 # Pobiera "surowe" dane z funkcji krwiodawcyBaza() i wyswietla w tabelce
-def krwiodawcy():
-    wynik = krwiodawcyBaza()
-    html = "<table class=\"Tabelka-krwiodawcy\">\n"
-    html += "<tr><td>Id</td><td>Grupa</td><td>Rh</td><td>Imię</td><td>Nazwisko</td><td>Płeć</td>" \
-            "<td>Data urodzenia</td><td>Pesel</td><td>Adres</td><td>Dodatkowy opis</td></tr>\n"
+def tabela():
+    wynik = tabelaBaza()
+    html = "<table class=\"Tabela-obiektow\">\n"
+    html += "<tr><td>Nazwa Obiektu</td><td>KLient</td><td>Ulica</td><td>Numer budynku</td><td>Kod Pocztowy</td>" \
+            "<td>Miasto</td><td>Czynność</td><td>Ilość Bram</td><td>Uwagi</td><td>Zrobione?</td></tr>\n"
     for krwiodawca in wynik:
         html += "<tr>"
         for pole in krwiodawca:
@@ -24,12 +24,12 @@ def krwiodawcy():
 
 # Zwraca liste wszystkich krwiodawców z bazy danych
 # ( result[0] to lista danych jednego krwiodawcy, a np. result[0][0] to id pierwszego kriwodawcy )
-def krwiodawcyBaza():
+def tabelaBaza():
     conn = DbConnection()
     # conn.execute('SELECT * FROM Krwiodawcy')
-    sql = "SELECT Krwiodawcy.id, grupa, rh, imie, nazwisko, " \
-          "plec, data_urodzenia, pesel, adres, dodatkowy_opis " \
-          "from Krwiodawcy JOIN GrupyKrwi on Krwiodawcy.grupy_krwi_id=GrupyKrwi.id order by nazwisko;"
+    sql = "SELECT Nazwa, Klient, Ulica, Numer_Budynku, Kod_pocztowy, " \
+          "Miasto, Czynnosc, Ilosc_bram, Uwagi, Zrobione " \
+          "from Obiekt  order by Nazwa;"
     conn.execute(sql)
     result = conn.getData()
     del conn
