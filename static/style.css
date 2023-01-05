@@ -121,4 +121,10 @@ h1 {
     text-align: center;
     letter-spacing: 0;
 }
+/* O projekcie */
+.projekt {
+    position: absolute;
+    left: 20%;
+    top: 20%;
+}
 

@@ -142,30 +142,24 @@ def poziomy():
     return ""
 
 def kontakt():
-    return """           Dane kontaktowe: <br><br> \
-           d.morzejko@student.po.opole.pl<br><br> \
-           Kontakt telefoniczny: 666 91 81 81.<br> \
-           
-        <br><br><br><br><br><br><br><br><br>
-"""
+    return """<div class="projekt">Dane kontaktowe: <br> \
+           d.morzejko@student.po.opole.pl<br> \
+           Kontakt telefoniczny: 666 91 81 81.<br></div>"""
 
 
 
 def info():
-    return "Za projekt odpowiedzialni:<br><br>" \
-           "Natalia Nortenko<br>" \
-           "Piotr Rosiak<br>" \
-           "Sebastian Murański<br>" \
-           "Witold Rogula<br>" \
-           "Daniel Morzejko<br><br>" \
-           "Informatyka I, niestacjonarne, rok 4, sem. VII <br>" \
-           "Przedmiot: Projekt zespołowy systemu informatycznego.<br>" \
-           "Prowadzący: Dr Inż. Mariusz Sobol"
+    return '<div class="projekt">Za projekt odpowiedzialny:<br>' \
+           "<h2>Daniel Morzejko</h2>" \
+           "Informatyka I, niestacjonarne, nr. Indeksu: s64597<br>" \
+           "d.morzejko@student.po.edu.pl<br>" \
+           "Projekt i wykonanie aplikacji webowej wspomagającej pracę działu serwisu.<br>" \
+           "Promotor: Dr Hab. Inż. Marek Rydel</div>"
 
 def glowna():
-    return "<h3>Witaj na stronie poświęconej pracy inżynierskiej Daniela Morzejko.</h3>" \
+    return """<div class="projekt"><h3>Witaj na stronie poświęconej pracy inżynierskiej Daniela Morzejko.</h3>" \
            "Strona ta, jest serwisem webowym wspierającym pracę serwisu bram przeciwpożarowych.<br>" \
-           "Aby zacząć, kliknij w Logowanie"
+           "Aby zacząć, kliknij w Logowanie</div>"""
 
 def nowy_pacjent():
     gk = grupyKrwi()

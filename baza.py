@@ -11,7 +11,10 @@ import mysql.connector
 # Pobiera "surowe" dane z funkcji krwiodawcyBaza() i wyswietla w tabelce
 def tabela():
     wynik = tabelaBaza()
-    html = "<table class=\"Tabela-obiektow\">\n"
+    html = """<div class="form-tytul">
+            <span class="tytul2"><h2>Tabela obiektów</h2></span>
+            </div>""" \
+           "<table class=\"Tabela-obiektow\">\n"
     html += "<tr><td>Nazwa Obiektu</td><td>KLient</td><td>Ulica</td><td>Numer budynku</td><td>Kod Pocztowy</td>" \
             "<td>Miasto</td><td>Czynność</td><td>Ilość Bram</td><td>Uwagi</td><td>Zrobione?</td></tr>\n"
     for krwiodawca in wynik:
