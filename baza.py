@@ -11,16 +11,26 @@ import mysql.connector
 # Pobiera "surowe" dane z funkcji krwiodawcyBaza() i wyswietla w tabelce
 def tabela():
     wynik = tabelaBaza()
-    html = """<div class="form-tytul">
+    id = tabelaBazaId()
+    i=0
+    html = """<div class="baza-tytul">
             <span class="tytul2"><h2>Tabela obiektów</h2></span>
-            </div>""" \
+            </div>
+            <div class="przyciski">
+            <button name="edytuj" id="button_edytuj" type="edit" class="edytuj">Edytuj / Pokaż</button>
+            <button name="dodaj" id="button_dodaj" type="add" class="dodaj">Dodaj</button>
+            <a href="/nowy_obiekt"><span class="link">Dodaj Obiekt</span></a></br>""" \
            "<table class=\"Tabela-obiektow\">\n"
-    html += "<tr><td>Nazwa Obiektu</td><td>KLient</td><td>Ulica</td><td>Numer budynku</td><td>Kod Pocztowy</td>" \
+    html += "<tr><td>Zaznacz</td><td>Nazwa Obiektu</td><td>KLient</td><td>Ulica</td><td>Numer budynku</td><td>Kod Pocztowy</td>" \
             "<td>Miasto</td><td>Czynność</td><td>Ilość Bram</td><td>Uwagi</td><td>Zrobione?</td></tr>\n"
-    for krwiodawca in wynik:
-        html += "<tr>"
-        for pole in krwiodawca:
-            html += "<td>" + str(pole) + "</td>"
+    for obiekt in wynik:
+        #a=id[i]
+        #html += '<tr> <td> <input type="checkbox" id="t'+str(a)+' name="t'+str(a)+'><span></span></td>'
+        #print(id[i])
+        #print(str(a))
+       # i+=1
+        for pole in obiekt:
+            html += """<td>""" + str(pole) + "</td>"
         html += "</tr>\n"
     html += "</table>\n"
     return html
@@ -29,12 +39,19 @@ def tabela():
 # ( result[0] to lista danych jednego krwiodawcy, a np. result[0][0] to id pierwszego kriwodawcy )
 def tabelaBaza():
     conn = DbConnection()
-    # conn.execute('SELECT * FROM Krwiodawcy')
     sql = "SELECT Nazwa, Klient, Ulica, Numer_Budynku, Kod_pocztowy, " \
           "Miasto, Czynnosc, Ilosc_bram, Uwagi, Zrobione " \
-          "from Obiekt  order by Nazwa;"
+          "from Obiekt order by Nazwa;"
     conn.execute(sql)
     result = conn.getData()
+    del conn
+    return result
+def tabelaBazaId():
+    conn = DbConnection()
+    sql = "SELECT Id from Obiekt  order by Nazwa;"
+    conn.execute(sql)
+    result = conn.getData()
+    print(result[0])
     del conn
     return result
 
@@ -49,80 +66,20 @@ def krwiodawca(id):
 
 
 # Zwraca listę stanów krwi, przy podaniu id oddziału zwraca stany w ml dla danego oddziału z podziałem na grupy
-def stanKrwi(idOddzialu=None):
-    conn = DbConnection()
-    sql = 'SELECT GrupyKrwi.id, sum(ilosc_ml) FROM Krew ' \
-          'JOIN Pobrania ON Krew.pobrania_id = Pobrania.id ' \
-          'JOIN Krwiodawcy ON Pobrania.krwiodawcy_id = Krwiodawcy.id ' \
-          'JOIN GrupyKrwi ON GrupyKrwi.id = Krwiodawcy.grupy_krwi_id ' \
-          'JOIN Pracownicy ON Pracownicy.id = Pobrania.pracownicy_id ' \
-          'JOIN Oddzialy ON Oddzialy.id = Pracownicy.oddzial_rckik_id'
-    if idOddzialu is not None:
-        sql += ' WHERE Oddzialy.id = ' + str(idOddzialu)
-    sql += ' GROUP BY 1'
-    conn.execute(sql)
-    data = conn.getData()[:][:]
-    sql = 'SELECT id, CONCAT(GrupyKrwi.Grupa, " RH", GrupyKrwi.RH) FROM GrupyKrwi'
-    conn.execute(sql)
-    grupy = conn.getData()[:][:]
-    del conn
-    result = []
-    for i in range(len(grupy)):
-        grupy[i].append(0)
-        for j in data:
-            if j[0] == grupy[i][0]:
-                grupy[i][2] = int(j[1])
-        result.append(grupy[i][1:])
-    return result
-
-# zwraca listę grup krwi wraz z id ( [['1', 'A Rh-'], ['2', 'A Rh+'] ... )
-def grupyKrwi():
-    conn = DbConnection()
-    sql = 'SELECT * FROM GrupyKrwi'
-    conn.execute(sql)
-    data = conn.getData()
-    del conn
-    result = []
-    for i in data:
-        result.append([i[0], str(i[1]) + ' Rh' + str(i[2])])
-    return result
 
 # zwraca listę oddziałów wraz z adresem
-def listaOddzialow():
-    conn = DbConnection()
-    sql = 'SELECT * FROM Oddzialy'
-    conn.execute(sql)
-    data = conn.getData()
-    del conn
-    result = []
-    for i in data:
-        result.append([i[0], str(i[1])])
-    return result
-
-# zwraca listę krwiodawców wraz z id
-def listaKrwiodawcow():
-    conn = DbConnection()
-    sql = 'SELECT id, nazwisko, imie FROM Krwiodawcy order by Nazwisko'
-    conn.execute(sql)
-    data = conn.getData()
-    del conn
-    result = []
-    for i in data:
-        k = str(i[1]) + " " + str(i[2])
-        result.append([i[0], k])
-    return result
 
 
 # Dodaje krwiodawce do bazy danych, należy podać listę danych do funkcji
 # Format: # [grupaKrwi_id, 'Stefan', 'Nowak', 'M', '12-10-1945', '12345678901', 'Struga 12, Opole', 'Opis']
-def dodajKrwiodawce(data):
+def dodajObiekt(data):
     conn = DbConnection()
-    sql = 'SELECT MAX(Id) FROM Krwiodawcy'
+    sql = 'SELECT MAX(Id) FROM Obiekt'
     conn.execute(sql)
     Id = conn.getData()[0][0] + 1
-    sql = "INSERT INTO Krwiodawcy (id, grupy_krwi_id, imie, nazwisko, plec, data_urodzenia, pesel, adres," \
-          " dodatkowy_opis) VALUES ({}, {}, '{}', '{}', '{}', STR_TO_DATE('{}', '%Y-%m-%d'), '{}', '{}', '{}')"\
-        .format(Id, data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7])
+    sql = "INSERT INTO Obiekt (id, Nazwa, Klient, Ulica, Numer_Budynku, Kod_Pocztowy, Miasto, Osoba_Kontaktowa, "\
+        "Numer_Kontaktowy, Czynnosc, Ilosc_bram, Uwagi, Zrobione) VALUES ({}, '{}','{}','{}','{}','{}','{}', '{}', '{}', '{}', '{}', '{}', '{}')"\
+        .format(Id, data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11])
     conn.execute(sql)
     conn.commit()
     print(sql)
@@ -148,42 +105,6 @@ def edytujKrwiodawce(id, data):
     del conn
 
 
-# Dodaje pobranie krwi. W argumentach należy podać [id krwiodawcy, id pracownika, ilość pobranej krwi,
-# opcjonalnie data pobrania], data w formacie datetime (np. data = datetime(2022, 12, 24) -> 24 grudnia 2022)
-def pobranieKrwi(krwiodawca_id, pracownik_id, ml, data=datetime.today()):
-    conn = DbConnection()
-    # Pobranie ostatnich id
-    sql = 'SELECT MAX(Id) FROM Pobrania'
-    conn.execute(sql)
-    id_pobrania = conn.getData()[0][0] + 1
-    sql = 'SELECT MAX(Id) FROM Krew'
-    conn.execute(sql)
-    id_krew = conn.getData()[0][0] + 1
-    # Insert pobrania
-    sql = f"INSERT INTO Pobrania (id, krwiodawcy_id, pracownicy_id, data)" \
-          f"VALUES ({id_pobrania}, {krwiodawca_id}, {pracownik_id}, " \
-          f"STR_TO_DATE('{data.date()}', '%Y-%m-%d'))"
-    conn.execute(sql)
-    # Insert krew
-    sql = f"INSERT INTO Krew (id, ilosc_ml, pobrania_id)" \
-          f"VALUES ({id_krew}, {ml}, {id_pobrania})"
-    conn.execute(sql)
-    conn.commit()
-    del conn
-
-# Zwraca historie pobran z zakresu 2 dat
-# data_pobrania, ilość, grupa krwi, oddział, krwiodawca
-def historia_baza(data_od, data_do):
-    conn = DbConnection()
-    sql = "select data, ilosc_ml, grupa, rh, Oddzialy.adres, Krwiodawcy.imie, Krwiodawcy.nazwisko from Pobrania left join Krwiodawcy on Pobrania.krwiodawcy_id = Krwiodawcy.id left join Krew on Pobrania.id = Krew.id left join GrupyKrwi on GrupyKrwi.id = Krwiodawcy.grupy_krwi_id left join Pracownicy on Pobrania.pracownicy_id = Pracownicy.id join Oddzialy on Oddzialy.id = Pracownicy.oddzial_rckik_id where data>='" + data_od + "' and data<='" + data_do + "' order by data;"
-    conn.execute(sql)
-    data = conn.getData()
-    del conn
-    result = []
-    for i in data:
-        o = i[4].split() # oddział - samo miasto
-        result.append([i[0].strftime("%Y-%m-%d"), str(i[1])+' ml', i[2]+' Rh '+i[3], o[-1], i[5]+' '+i[6]])
-    return result
 
 
 # klasa połączenia z bazą - utworzenie instancji klasy tworzy połączenie i ułatwia obsługe bazy

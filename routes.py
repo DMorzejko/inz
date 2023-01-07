@@ -10,9 +10,9 @@ from funkcje import *
 def W_logowanie():
     return wyswietl(2, ["Logowanie", logowanie(), ['']])
 
-@routes.route('/nowy_pacjent')
+@routes.route('/nowy_obiekt')
 def W_nowy_pacjent():
-    return wyswietl(2, ["Dodaj krwiodawcę", nowy_pacjent(), ['']])
+    return wyswietl(2, ["Dodaj Obiekt", nowy_obiekt(), ['']])
 
 @routes.route('/projekt')
 def W_projekt():
@@ -33,7 +33,7 @@ def W_o_projekcie():
     return wyswietl(2, ["O projekcie", o_projekcie(), ['']])
 
 
-@routes.route('/nowy_pacjent_odbierz', methods = ['POST'])
+@routes.route('/nowy_obiekt_odbierz', methods = ['POST'])
 def W_nowy_pacjent_odbierz():
     # Pobierz dane z formularza
     imie = request.form['imie']
@@ -47,7 +47,7 @@ def W_nowy_pacjent_odbierz():
 
     # Wstaw dane do bazy
     dane = [gk_id, imie, nazwisko, plec, data_ur, pesel, adres, opis]
-    dodajKrwiodawce(dane)
+    dodajObiekt(dane)
 
     # Wyswietl jakis testowy HTML
     html = "<h1>Dodano " + imie + " " + nazwisko + ".</h1>"
@@ -58,11 +58,11 @@ def W_nowy_pacjent_odbierz():
 
 @routes.route('/tabela')
 def W_tabela():
-    return wyswietl(2, ["Tabela", tabela(), ['']])
+    return wyswietl(2, ["Tabela obiektów", tabela(), ['']])
 
-@routes.route('/poziomy')
-def W_poziomy():
-    return wyswietl(2, ["Poziomy", poziomy(), ['']])
+@routes.route('/nowy_obiekt')
+def W_nowy_obiekt():
+    return wyswietl(2, ["Nowy Obiekt", poziomy(), ['']])
 
 @routes.route('/kontakt')
 def W_funkcja2():

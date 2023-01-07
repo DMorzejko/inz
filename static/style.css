@@ -67,6 +67,13 @@
     font-size: 26px;
 
 }
+.link {
+    color: #888888;
+    font-family: 'Poppins';
+    text-align: center;
+    align-self: center;
+    font-size: 20px;
+}
 
 a:link, a:visited, a:hover, a:active {
 text-decoration: none;
@@ -93,6 +100,12 @@ text-decoration: none;
 }
 
 
+.form-tytul {
+    position: absolute;
+    left: 20%;
+    top: 10%;
+
+}
 
 h1 {
     padding-top: 20px;
@@ -127,4 +140,8 @@ h1 {
     left: 20%;
     top: 20%;
 }
+
+
+
+
 

@@ -1,0 +1,42 @@
+<!-- FORMULARZ -->
+<div class="form">
+    <div class="form-tytul">
+        <h2>Dodaj obiekt</h2>
+    </div>
+    <form action="/nowy_obiekt_odbierz" method="post" id="formularz_nowy_obiekt">
+        <div class="projekt">
+                <label for="nazwa"><span class="tekst1">Nazwa Obiektu</span></label>
+                <input type="text" class="pole1" id="nazwa" name="nazwa" required>
+                <label for="klient"><span class="tekst1">Klient</span></label>
+                <input type="text" class="pole1" id="klient" name="klient" required><br>
+
+                <label for="ulica"><span class="tekst1">Ulica</span></label>
+                <input type="text" class="pole1" id="ulica" name="ulica" required>
+                <label for="numer-budynku"><span class="tekst1">Numer Budynku</span></label>
+                <input type="text" class="pole1" id="numer-budynku" name="numer-budynku" required>
+                <label for="kod-pocztowy"><span class="tekst1">Kod Pocztowy</span></label>
+                <input type="text" class="pole1" id="kod-pocztowy" name="kod-pocztowy" required pattern="^\d{2}-\d{3}$" minlength="6" maxlength="6" size="8" placeholder="XX-XXX">
+                <label for="miasto"><span class="tekst1">Miasto</span></label>
+                <input type="text" class="pole1" id="miasto" name="miasto" required><br>
+
+                <label for="osoba-kontaktowa"><span class="tekst1">Osoba Kontaktowa</span></label>
+                <input type="text" class="pole1" id="osoba-kontaktowa" name="osoba-kontaktowa" required>
+                <label for="telefon-kontaktowy"><span class="tekst1">Telefon Kontaktowy</span></label>
+                <input type="text" class="pole1" id="telefon-kontaktowy" name="telefon-kontaktowy" required pattern="[0-9]"placeholder="XXXXXXXXX"><br>
+
+                <label for="opis"><span class="tekst2">Uwagi</span></label>
+                <textarea class="pole3" id="opis" name="opis" rows="5" cols="100"></textarea><br>
+                <label for="zrobione"><span class="tekst1">Zrobione?</span></label>
+                <select id="zrobione" name="zrobione" class="pole1a" required>
+                    <option value="0" selected>Nie</option>
+                    <option value="1">Tak</option>
+                </select><br>
+
+        <button class="reset" type="reset">Reset</button>
+        <button name="button_zapisz" id="button_zapisz" type="submit" class="zapisz">Zapisz</button>
+
+        </div>
+
+</form>
+</div>
+<!-- Formularz -->
