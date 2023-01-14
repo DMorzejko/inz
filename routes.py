@@ -8,29 +8,31 @@ from funkcje import *
 
 @routes.route('/logowanie')
 def W_logowanie():
-    return wyswietl(2, ["Logowanie", logowanie(), ['']])
-
-@routes.route('/nowy_obiekt')
-def W_nowy_pacjent():
-    return wyswietl(2, ["Dodaj Obiekt", nowy_obiekt(), ['']])
+    return wyswietl(1, ["Logowanie", logowanie(), ['']])
 
 @routes.route('/projekt')
 def W_projekt():
-        return wyswietl(2, ["Logowanie", info(), ['']])
+    return wyswietl(1, ["Logowanie", info(), ['']])
+
+@routes.route('/tabela')
+def W_tabela():
+    return wyswietl(1, ["Tabela obiektów", tabela(), ['']])
 
 @routes.route('/mapa', methods = ['GET'])
 def W_mapa():
     data1 = request.args.get('data1')
     data2 = request.args.get('data2')
-    return wyswietl(2, ["Mapa", historia(data1, data2), ['']])
+    return wyswietl(1, ["Mapa", historia(data1, data2), ['']])
 
-@routes.route('/badania')
-def W_badania():
-    return wyswietl(2, ["Wyniki badań", badania(), ['']])
 
-@routes.route('/o_projekcie')
-def W_o_projekcie():
-    return wyswietl(2, ["O projekcie", o_projekcie(), ['']])
+
+@routes.route('/kontakt')
+def W_funkcja2():
+    return wyswietl(1, ["Kontakt", kontakt(), ['']])
+
+@routes.route('/nowy_obiekt')
+def W_nowy_obiekt():
+    return wyswietl(1, ["Nowy Obiekt", poziomy(), ['']])
 
 
 @routes.route('/nowy_obiekt_odbierz', methods = ['POST'])
@@ -54,17 +56,15 @@ def W_nowy_pacjent_odbierz():
     html += "<a href=\"/krwiodawcy\">Zobacz</a><br><br>"
     html += "<a href=\"/nowy_pacjent\">Dodaj kolejny</a><br>"
 
-    return wyswietl(2, ["Nowy Pacjent", html, ['']])
+    return wyswietl(1, ["Nowy Pacjent", html, ['']])
 
-@routes.route('/tabela')
-def W_tabela():
-    return wyswietl(2, ["Tabela obiektów", tabela(), ['']])
 
-@routes.route('/nowy_obiekt')
-def W_nowy_obiekt():
-    return wyswietl(2, ["Nowy Obiekt", poziomy(), ['']])
 
-@routes.route('/kontakt')
-def W_funkcja2():
-    return wyswietl(2, ["Kontakt", kontakt(), ['']])
+
+
+
+
+
+
+
 

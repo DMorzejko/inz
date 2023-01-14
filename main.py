@@ -11,7 +11,7 @@ aplikacja.register_blueprint(baza)
 
 @aplikacja.route("/")
 def index():
-    return wyswietl(2, ["Inz", glowna(), ['']])
+    return wyswietl(1, ["Inz", glowna(), ['']])
 
 # Wejdz na http://localhost:8080
 # i zobacz czy dziala
