@@ -21,7 +21,7 @@ def tabela():
             <button name="dodaj" id="button_dodaj" type="add" class="dodaj">Dodaj</button>
             <a href="/nowy_obiekt"><span class="link">Dodaj Obiekt</span></a></br>""" \
            "<table class=\"Tabela-obiektow\">\n"
-    html += "<tr><td>Zaznacz</td><td>Nazwa Obiektu</td><td>KLient</td><td>Ulica</td><td>Numer budynku</td><td>Kod Pocztowy</td>" \
+    html += "<tr><td>Nazwa Obiektu</td><td>KLient</td><td>Ulica</td><td>Numer budynku</td><td>Kod Pocztowy</td>" \
             "<td>Miasto</td><td>Czynność</td><td>Ilość Bram</td><td>Uwagi</td><td>Zrobione?</td></tr>\n"
     for obiekt in wynik:
         #a=id[i]

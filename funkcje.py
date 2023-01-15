@@ -147,8 +147,6 @@ def kontakt():
             d.morzejko@student.po.opole.pl<br> \
             Kontakt telefoniczny: 666 91 81 81.<br></div>"""
 
-
-
 def info():
     return '<div class="form-tytul"><h2>Za projekt odpowiedzialny:</h2></div> \
            <div class="projekt"> \
