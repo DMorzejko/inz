@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 .body {
-    background-color: #292929;
+    background-color: #d1e7dd;
     margin: 0 !important;
 }
 
@@ -60,7 +60,7 @@
 
 
 .naglowek_tekst {
-    color: #888888;
+    color: #212529;
     font-family: 'Poppins';
     text-align: center;
     align-self: center;
@@ -68,7 +68,7 @@
 
 }
 .link {
-    color: #888888;
+    color: #212529;
     font-family: 'Poppins';
     text-align: center;
     align-self: center;
@@ -80,16 +80,16 @@ text-decoration: none;
 }
 
 .serwis {
-    color: #888888;
+    color: #212529;
     align-self: center;
     font-size: 16px;
 }
 
 /* Główny obszar strony */
 .tresc {
-    background-color: #292929;
+    background-color: #d1e7dd;
     min-height: 400px;
-    color: #888888;
+    color: #212529;
     width: 100%;
     height: 50px;
     line-height: 50px;
@@ -116,7 +116,7 @@ h1 {
 
 /* Stopka */
 .stopka {
-    background-color: #292929;
+    background-color: #d1e7dd;
     width: 100%;
     height: 50px;
     text-align: center;
@@ -125,7 +125,7 @@ h1 {
 }
 
 .wersja {
-    color: #888888;
+    color: #212529;
     width: 100%;
     height: 50px;
     line-height: 50px;

@@ -18,11 +18,10 @@ def W_projekt():
 def W_tabela():
     return wyswietl(1, ["Tabela obiektów", tabela(), ['']])
 
-@routes.route('/mapa', methods = ['GET'])
+@routes.route('/mapa')
 def W_mapa():
-    data1 = request.args.get('data1')
-    data2 = request.args.get('data2')
-    return wyswietl(1, ["Mapa", historia(data1, data2), ['']])
+    mapa = 0
+    return wyswietl(1, ["Mapa", mapa, ['']])
 
 
 

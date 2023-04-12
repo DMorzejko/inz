@@ -4,24 +4,26 @@ from flask import *
 
 baza = Blueprint('baza', __name__)
 
-# Zainstalujcie "mysql-connector-python" (bo są 2 do wyboru)
 import mysql.connector
 
 
-# Pobiera "surowe" dane z funkcji krwiodawcyBaza() i wyswietla w tabelce
+# Pobiera "surowe" dane z funkcji tabelaBaza() i wyswietla w tabelce
 def tabela():
     wynik = tabelaBaza()
     id = tabelaBazaId()
     i=0
-    html = """<div class="baza-tytul">
+    html = """<div class="form-tytul">
+    <br>
             <span class="tytul2"><h2>Tabela obiektów</h2></span>
             </div>
-            <div class="przyciski">
-            <button name="edytuj" id="button_edytuj" type="edit" class="edytuj">Edytuj / Pokaż</button>
-            <button name="dodaj" id="button_dodaj" type="add" class="dodaj">Dodaj</button>
-            <a href="/nowy_obiekt"><span class="link">Dodaj Obiekt</span></a></br>""" \
-           "<table class=\"Tabela-obiektow\">\n"
-    html += "<tr><td>Nazwa Obiektu</td><td>KLient</td><td>Ulica</td><td>Numer budynku</td><td>Kod Pocztowy</td>" \
+            <div class="przyciski"><br>
+            <br>
+            <a href="/nowy_obiekt" class="btn btn-light btn-lg"><span class="link">Dodaj Obiekt</span></a>
+            <button name="edytuj" id="button_edytuj" type="edit" class="btn btn-light btn-lg">Edytuj / Pokaż</button>
+            <button name="usun" id="button_usun" type="delete" class="btn btn-light btn-lg">Usuń</button>
+            <br><br>""" \
+           "<table class=\"Tabela-obiektow table table-success table-striped\">\n"
+    html += "<tr><td>Nazwa Obiektu</td><td>Klient</td><td>Ulica</td><td>Numer budynku</td><td>Kod Pocztowy</td>" \
             "<td>Miasto</td><td>Czynność</td><td>Ilość Bram</td><td>Uwagi</td><td>Zrobione?</td></tr>\n"
     for obiekt in wynik:
         #a=id[i]

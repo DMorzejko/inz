@@ -8,7 +8,7 @@ from baza import *
 def logowanie():
     return render_template('logowanie.html')
 
-def pobierz_krew(krwiodawca):
+'''def pobierz_krew(krwiodawca):
     # Sprawdz wybrany oddzial
     if krwiodawca is None:
         krwiodawca = -1
@@ -36,9 +36,9 @@ def pobierz_krew(krwiodawca):
         s2 += "<p>Tu będzie dalsza część fomularza... </p>\n";
 
     s1 =  render_template('projekt.html',krwiodawcy=k_lista)
-    return s1 + s2
+    return s1 + s2'''
 
-def historia(data1, data2):
+'''def historia(data1, data2):
     # Sprawdz daty
     if data1 is None:
         data1 = ''
@@ -81,12 +81,12 @@ def historia(data1, data2):
         tabelka += "<!-- Tabelka historia -->\n"
 
     s1 =  render_template('mapa.html', d1=d1, d2=d2)
-    return s1 + tabelka
+    return s1 + tabelka'''
 
 def badania():
     return "<h1>Wyniki badań</h1>"
 
-def stany(oddzial):
+'''def stany(oddzial):
     # Liczba ml uznawana jako 100%
     STANY_MAX = 1000
 
@@ -133,7 +133,7 @@ def stany(oddzial):
         html += "</tr>\n</table>\n"
 
     szablon =  render_template('edycja.html',oddzialy=oddzialy_lista)
-    return szablon + html
+    return szablon + html'''
 
 def o_projekcie():
     return "<h1>O projekcie</h1>"+info()
