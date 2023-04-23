@@ -5,33 +5,55 @@ from flask import *
 baza = Blueprint('baza', __name__)
 
 import mysql.connector
+import random
+import string
+import hashlib
+import binascii
+
 
 
 # Pobiera "surowe" dane z funkcji tabelaBaza() i wyswietla w tabelce
 def tabela():
     wynik = tabelaBaza()
     id = tabelaBazaId()
+
     i=0
-    html = """<div class="form-tytul">
+    html = """
+    <script>
+    function editSelectedObiekt() {
+        var checkboxes = document.querySelectorAll('input[type=checkbox]');
+        var selectedId = null;
+    
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selectedId = checkboxes[i].id.replace('checkbox_', '');
+                break;
+            }
+        }
+    
+        if (selectedId !== null) {
+            location.href = '/edit/' + selectedId;
+        } else {
+            alert('Proszę zaznaczyć obiekt do edycji.');
+        }
+    }
+    </script>
+    <div class="form-tytul">
     <br>
             <span class="tytul2"><h2>Tabela obiektów</h2></span>
             </div>
             <div class="przyciski"><br>
             <br>
             <a href="/nowy_obiekt" class="btn btn-light btn-lg"><span class="link">Dodaj Obiekt</span></a>
-            <button name="edytuj" id="button_edytuj" type="edit" class="btn btn-light btn-lg">Edytuj / Pokaż</button>
+            <button name="edytuj" id="button_edytuj" type="edit" class="btn btn-light btn-lg" onclick="editSelectedObiekt()">Edytuj / Pokaż</button>
             <button name="usun" id="button_usun" type="delete" class="btn btn-light btn-lg">Usuń</button>
             <br><br>""" \
            "<table class=\"Tabela-obiektow table table-success table-striped\">\n"
-    html += "<tr><td>Nazwa Obiektu</td><td>Klient</td><td>Ulica</td><td>Numer budynku</td><td>Kod Pocztowy</td>" \
+    html += "<tr><td>Zaznacz</td><td>Nazwa Obiektu</td><td>Klient</td><td>Ulica</td><td>Numer budynku</td><td>Kod Pocztowy</td>" \
             "<td>Miasto</td><td>Czynność</td><td>Ilość Bram</td><td>Uwagi</td><td>Zrobione?</td></tr>\n"
     for obiekt in wynik:
-        #a=id[i]
-        #html += '<tr> <td> <input type="checkbox" id="t'+str(a)+' name="t'+str(a)+'><span></span></td>'
-        #print(id[i])
-        #print(str(a))
-       # i+=1
-        for pole in obiekt:
+        html += '<tr><td><input type="checkbox" id="checkbox_{}" name="checkbox_{}"><span></span></td>'.format(obiekt[0], obiekt[0])
+        for pole in obiekt[1:]:
             html += """<td>""" + str(pole) + "</td>"
         html += "</tr>\n"
     html += "</table>\n"
@@ -41,13 +63,34 @@ def tabela():
 # ( result[0] to lista danych jednego krwiodawcy, a np. result[0][0] to id pierwszego kriwodawcy )
 def tabelaBaza():
     conn = DbConnection()
-    sql = "SELECT Nazwa, Klient, Ulica, Numer_Budynku, Kod_pocztowy, " \
+    sql = "SELECT Id, Nazwa, Klient, Ulica, Numer_Budynku, Kod_pocztowy, " \
           "Miasto, Czynnosc, Ilosc_bram, Uwagi, Zrobione " \
           "from Obiekt order by Nazwa;"
     conn.execute(sql)
     result = conn.getData()
     del conn
     return result
+
+def list_to_dict(obiekt_list):
+    keys = ['Id', 'Nazwa', 'Klient', 'Ulica', 'Numer_Budynku', 'Kod_Pocztowy', 'Miasto', 'Osoba_Kontaktowa', 'Numer_Kontaktowy', 'Czynnosc', 'Ilosc_Bram', 'Uwagi', 'Zrobione']
+    return {keys[i]: obiekt_list[i] for i in range(len(keys))}
+def get_obiekt_by_id(obiekt_id):
+    conn = DbConnection()
+    sql = "SELECT * FROM Obiekt WHERE Id = %s;"
+    o = (obiekt_id,)
+    conn.execute(sql, o)
+    result = conn.getData()
+    del conn
+
+    obiekt = result[0] if result else None
+
+    if obiekt is not None:
+        obiekt = list_to_dict(obiekt)
+
+    # Wydrukuj zwracany obiekt
+    print("Zwracany obiekt:", obiekt)
+
+    return obiekt
 def tabelaBazaId():
     conn = DbConnection()
     sql = "SELECT Id from Obiekt  order by Nazwa;"
@@ -56,6 +99,14 @@ def tabelaBazaId():
     print(result[0])
     del conn
     return result
+def update_obiekt(obiekt_id, updated_data):
+    conn = DbConnection()
+    sql = """UPDATE Obiekt SET Nazwa=%s, Klient=%s, Ulica=%s, Numer_Budynku=%s,
+             Kod_pocztowy=%s, Miasto=%s, Czynnosc=%s, Ilosc_bram=%s, Uwagi=%s, Zrobione=%s
+             WHERE Id=%s;"""
+    conn.execute(sql, (*updated_data, obiekt_id))
+    conn.commit()
+    del conn
 
 
 # Zwraca dane krwiodawcy o podanym id w postaci listy
@@ -90,7 +141,7 @@ def dodajObiekt(data):
 
 # Zmiania dane krwiodawcy o danym id. W argumecie id należy podać id krwiodawcy,
 # w data - tablicę danych [grupaKrwi_id, imie, nazwisko, płeć, data_urodzenia, pesel, adres, dodatkowy_opis]
-def edytujKrwiodawce(id, data):
+'''def edytujKrwiodawce(id, data):
     conn = DbConnection()
     sql = f'UPDATE Krwiodawcy SET ' \
           f'grupy_krwi_id = {data[0]}, ' \
@@ -105,7 +156,7 @@ def edytujKrwiodawce(id, data):
     conn.execute(sql)
     conn.commit()
     del conn
-
+'''
 
 
 
@@ -129,8 +180,11 @@ class DbConnection:
         self.connection.close()
 
     # execute wykonuje podane polecenie sql ( np. db.execute('SELECT * FROM ...') )
-    def execute(self, sql):
-        self.cursor.execute(sql)
+    def execute(self, sql, params=None):
+        if params is not None:
+            self.cursor.execute(sql, params)
+        else:
+            self.cursor.execute(sql)
 
     # zatwirdza wprowadzone do bazy zmiany ( np. db.commit() )
     def commit(self):

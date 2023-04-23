@@ -83,6 +83,7 @@ def logowanie():
     s1 =  render_template('mapa.html', d1=d1, d2=d2)
     return s1 + tabelka'''
 
+
 def badania():
     return "<h1>Wyniki badań</h1>"
 
@@ -132,7 +133,7 @@ def badania():
             html += "<td>" + str(s[1]) + " ml</td>\n"
         html += "</tr>\n</table>\n"
 
-    szablon =  render_template('edycja.html',oddzialy=oddzialy_lista)
+    szablon =  render_template('edit_obiekt.html',oddzialy=oddzialy_lista)
     return szablon + html'''
 
 def o_projekcie():

@@ -23,8 +23,30 @@ def W_mapa():
     mapa = 0
     return wyswietl(1, ["Mapa", mapa, ['']])
 
+@routes.route('/edit/<int:obiekt_id>', methods=['GET', 'POST'])
+def edit_obiekt(obiekt_id):
+    obiekt = get_obiekt_by_id(obiekt_id)
 
+    if obiekt is None:
+        return "Obiekt o podanym ID nie istnieje.", 404
 
+    if request.method == 'POST':
+        updated_data = (
+            request.form['nazwa'],
+            request.form['klient'],
+            request.form['ulica'],
+            request.form['numer_budynku'],
+            request.form['kod_pocztowy'],
+            request.form['miasto'],
+            request.form['czynnosc'],
+            request.form['ilosc_bram'],
+            request.form['uwagi'],
+            request.form['zrobione'] == 'on'
+        )
+        update_obiekt(obiekt_id, updated_data)
+        return redirect(url_for('tabela'))
+    tresc = render_template('edit_obiekt.html', obiekt=obiekt)
+    return wyswietl(1, ["Edycja obiektu", tresc, ['']])
 @routes.route('/kontakt')
 def W_funkcja2():
     return wyswietl(1, ["Kontakt", kontakt(), ['']])
