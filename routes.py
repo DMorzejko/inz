@@ -2,7 +2,7 @@
 
 from flask import *
 routes = Blueprint('routes', __name__)
-
+import requests
 from layout import *
 from funkcje import *
 
@@ -20,8 +20,13 @@ def W_tabela():
 
 @routes.route('/mapa')
 def W_mapa():
-    mapa = 0
-    return wyswietl(1, ["Mapa", mapa, ['']])
+    obiekty = pobierz_obiekty_z_bazy()
+    obiekty_json = json.dumps([obiekt.__dict__ for obiekt in obiekty])
+    tresc = render_template('mapa.html', obiekty_json=obiekty_json)
+    return wyswietl(1, ["Mapa", tresc, ['style.css']])
+
+
+
 
 @routes.route('/edit/<int:obiekt_id>', methods=['GET', 'POST'])
 def edit_obiekt(obiekt_id):
@@ -79,10 +84,71 @@ def nowy_obiekt():
         dodaj_obiekt_baza(nazwa, klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, zrobione)
         return redirect(url_for('routes.W_tabela'))
 
-    tresc = render_template('dodaj_obiekt.html')
+    pusty_obiekt = {
+        'Nazwa': '',
+        'Klient': '',
+        'Ulica': '',
+        'Numer_Budynku': '',
+        'Kod_Pocztowy': '',
+        'Miasto': '',
+        'Osoba_Kontaktowa': '',
+        'Numer_Kontaktowy': '',
+        'Czynnosc': '',
+        'Ilosc_Bram': '',
+        'Uwagi': '',
+        'Zrobione': ''
+    }
+
+    tresc = render_template('dodaj_obiekt.html', obiekt=pusty_obiekt)
     return wyswietl(1, ["Dodaj nowy obiekt", tresc, ['style.css']])
 
+def pobierz_obiekty_z_bazy():
+    conn = DbConnection()
+    sql = ("SELECT * FROM Obiekt")
+    conn.execute(sql)
+    obiekty_raw = conn.getData()
+    del conn
 
+    obiekty = []
+    for obiekt_raw in obiekty_raw:
+        obiekt = Obiekt(*obiekt_raw)
+        obiekty.append(obiekt)
+
+    for obiekt in obiekty:  # Dodaj tę pętlę
+        print(vars(obiekt))  # Dodaj tę linijkę
+    return obiekty
+
+
+
+def adres_na_wspolrzedne(adres, api_key):
+    base_url = "https://maps.googleapis.com/maps/api/geocode/json"
+    params = {
+        "address": adres,
+        "key": api_key
+    }
+    response = requests.get(base_url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        if data['status'] == 'OK':
+            wspolrzedne = data['results'][0]['geometry']['location']
+            return wspolrzedne['lat'], wspolrzedne['lng']
+    return None, None
+
+class Obiekt:
+    def __init__(self, id, nazwa, klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, zrobione):
+        self.Id = id
+        self.Nazwa = nazwa
+        self.Klient = klient
+        self.Ulica = ulica
+        self.Numer_Budynku = numer_budynku
+        self.Kod_Pocztowy = kod_pocztowy
+        self.Miasto = miasto
+        self.Osoba_Kontaktowa = osoba_kontaktowa
+        self.Numer_Kontaktowy = numer_kontaktowy
+        self.Czynnosc = czynnosc
+        self.Ilosc_Bram = ilosc_bram
+        self.Uwagi = uwagi
+        self.Zrobione = zrobione
 
 
 

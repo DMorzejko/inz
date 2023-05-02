@@ -59,17 +59,17 @@ def tabela():
 }
     </script>
     <div class="form-tytul">
-    <br>
+    
             <span class="tytul2"><h2>Tabela obiektów</h2></span>
             </div>
             <div class="przyciski"><br>
             <br>"""
-    html += f"""
+    html += f"""<br><br><br>
             <a href="{nowy_obiekt_url}" class="btn btn-light btn-lg"><span class="link">Dodaj Obiekt</span></a>            <button name="edytuj" id="button_edytuj" type="edit" class="btn btn-light btn-lg" onclick="editSelectedObiekt()">Edytuj / Pokaż</button>
             """
     html += """
             <button name="usun" id="button_usun" type="button" class="btn btn-light btn-lg" onclick="deleteSelectedObiekt()">Usuń</button>
-            <br><br>
+            <br>
            "<table class=\"Tabela-obiektow table table-success table-striped\">\n"""
     html += "<tr><td>Zaznacz</td><td>Nazwa Obiektu</td><td>Klient</td><td>Ulica</td><td>Numer budynku</td><td>Kod Pocztowy</td>" \
             "<td>Miasto</td><td>Czynność</td><td>Ilość Bram</td><td>Uwagi</td><td>Zrobione?</td></tr>\n"
