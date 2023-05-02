@@ -38,10 +38,13 @@ def edit_obiekt(obiekt_id):
             request.form['numer_budynku'],
             request.form['kod_pocztowy'],
             request.form['miasto'],
+            request.form['osoba_kontaktowa'],
+            request.form['numer_kontaktowy'],
             request.form['czynnosc'],
             request.form['ilosc_bram'],
             request.form['uwagi'],
-            request.form['zrobione'] == 'on'
+            'TAK' if request.form['zrobione_hidden'] == 'TAK' else 'NIE'
+
         )
         update_obiekt(obiekt_id, updated_data)
         return redirect(url_for('routes.W_tabela'))

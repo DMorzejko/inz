@@ -74,7 +74,7 @@ def tabela():
     html += "<tr><td>Zaznacz</td><td>Nazwa Obiektu</td><td>Klient</td><td>Ulica</td><td>Numer budynku</td><td>Kod Pocztowy</td>" \
             "<td>Miasto</td><td>Czynność</td><td>Ilość Bram</td><td>Uwagi</td><td>Zrobione?</td></tr>\n"
     for obiekt in wynik:
-        html += '<tr><td><input type="checkbox" id="checkbox_{}" name="checkbox_{}"><span></span></td>'.format(obiekt[0], obiekt[0])
+        html += '<tr><td><input type="checkbox" id="checkbox_{}" name="checkbox_{}" style="transform: scale(1.8);"><span></span></td>'.format(obiekt[0], obiekt[0])
         for pole in obiekt[1:]:
             html += """<td>""" + str(pole) + "</td>"
         html += "</tr>\n"
@@ -123,7 +123,7 @@ def tabelaBazaId():
 def update_obiekt(obiekt_id, updated_data):
     conn = DbConnection()
     sql = """UPDATE Obiekt SET Nazwa=%s, Klient=%s, Ulica=%s, Numer_Budynku=%s,
-             Kod_Pocztowy=%s, Miasto=%s, Czynnosc=%s, Ilosc_Bram=%s, Uwagi=%s, Zrobione=%s
+             Kod_Pocztowy=%s, Miasto=%s, Osoba_kontaktowa=%s, Numer_Kontaktowy=%s, Czynnosc=%s, Ilosc_Bram=%s, Uwagi=%s, Zrobione=%s
              WHERE Id=%s;"""
     conn.execute(sql, (*updated_data, obiekt_id))
     conn.commit()

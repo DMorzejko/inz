@@ -5,27 +5,105 @@
     </div>
 <br><br>
     <form action="{{ url_for('routes.edit_obiekt', obiekt_id=obiekt.Id) }}" method="POST">
-        <label for="nazwa">Nazwa Obiektu:</label>
-        <input type="text" name="nazwa" id="nazwa" value="{{ obiekt.Nazwa }}" required><br>
-        <label for="klient">Klient:</label>
-        <input type="text" name="klient" id="klient" value="{{ obiekt.Klient }}" required><br>
-        <label for="ulica">Ulica:</label>
-        <input type="text" name="ulica" id="ulica" value="{{ obiekt.Ulica }}" required><br>
-        <label for="numer_budynku">Numer Budynku:</label>
-        <input type="text" name="numer_budynku" id="numer_budynku" value="{{ obiekt.Numer_Budynku }}" required><br>
-        <label for="kod_pocztowy">Kod Pocztowy:</label>
-        <input type="text" name="kod_pocztowy" id="kod_pocztowy" value="{{ obiekt.Kod_Pocztowy }}" required><br>
-        <label for="miasto">Miasto:</label>
-        <input type="text" name="miasto" id="miasto" value="{{ obiekt.Miasto }}" required><br>
-        <label for="czynnosc">Czynność:</label>
-        <input type="text" name="czynnosc" id="czynnosc" value="{{ obiekt.Czynnosc }}" required><br>
-        <label for="ilosc_bram">Ilość Bram:</label>
-        <input type="number" name="ilosc_bram" id="ilosc_bram" value="{{ obiekt.Ilosc_Bram }}" required><br>
-        <label for="uwagi">Uwagi:</label>
-        <textarea name="uwagi" id="uwagi">{{ obiekt.Uwagi }}</textarea><br>
-        <label for="zrobione">Zrobione?</label>
-        <input type="checkbox" name="zrobione" id="zrobione" {% if obiekt.Zrobione %}checked{% endif %}><br>
+        <div class="form-group row">
+            <div class="col-sm-1"></div>
+                <label for="nazwa" class="col-sm-1 col-form-label">Nazwa Obiektu:</label>
+            <div class="col-sm-10">
+                <input type="text" name="nazwa" id="nazwa" value="{{ obiekt.Nazwa }}" required size="70"><br>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-1"></div>
+                <label for="klient" class="col-sm-1 col-form-label">Klient:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="klient" id="klient" value="{{ obiekt.Klient }}" required size="70"><br>
+                </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-1"></div>
+            <label for="ulica" class="col-sm-1 col-form-label">Ulica:</label>
+            <div class="col-sm-10">
+                <input type="text" name="ulica" id="ulica" value="{{ obiekt.Ulica }}" required size="70"><br>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-1"></div>
+            <label for="numer_budynku" class="col-sm-1 col-form-label">Numer Budynku:</label>
+            <div class="col-sm-10">
+                <input type="text" name="numer_budynku" id="numer_budynku" value="{{ obiekt.Numer_Budynku }}" required size="70"><br>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-1"></div>
+            <label for="kod_pocztowy" class="col-sm-1 col-form-label">Kod Pocztowy:</label>
+            <div class="col-sm-10">
+                <input type="text" name="kod_pocztowy" id="kod_pocztowy" value="{{ obiekt.Kod_Pocztowy }}" required size="70"><br>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-1"></div>
+            <label for="miasto" class="col-sm-1 col-form-label">Miasto:</label>
+            <div class="col-sm-10">
+                <input type="text" name="miasto" id="miasto" value="{{ obiekt.Miasto }}" required size="70"><br>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-1"></div>
+            <label for="osoba_kontaktowa" class="col-sm-1 col-form-label">Osoba Kontaktowa:</label>
+            <div class="col-sm-10">
+                <input type="text" name="osoba_kontaktowa" id="osoba_kontaktowa" value="{{ obiekt.Osoba_Kontaktowa }}" required size="70"><br>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-1"></div>
+            <label for="numer_kontaktowy" class="col-sm-1 col-form-label">Numer Kontaktowy:</label>
+            <div class="col-sm-10">
+                <input type="text" name="numer_kontaktowy" id="numer_kontaktowy" value="{{ obiekt.Numer_Kontaktowy }}" required size="70"><br>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-1"></div>
+            <label for="czynnosc" class="col-sm-1 col-form-label">Czynność:</label>
+            <div class="col-sm-10">
+                <input type="text" name="czynnosc" id="czynnosc" value="{{ obiekt.Czynnosc }}" required size="70"><br>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-1"></div>
+            <label for="ilosc_bram" class="col-sm-1 col-form-label">Ilość Bram:</label>
+            <div class="col-sm-10">
+                <input type="number" name="ilosc_bram" id="ilosc_bram" value="{{ obiekt.Ilosc_Bram }}" required size="70"><br>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-1"></div>
+            <label for="uwagi" class="col-sm-1 col-form-label">Uwagi:</label>
+            <div class="col-sm-10">
+                <textarea name="uwagi" id="uwagi" cols="100" rows="5" style="line-height: 2;">{{ obiekt.Uwagi }}</textarea><br>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-1"></div>
+            <label for="zrobione" class="col-sm-1 col-form-label">Zrobione?</label>
+            <div class="col-sm-10 form-check form-switch">
+                <input class="form-check-input" type="checkbox" name="zrobione" id="zrobione" {% if obiekt.Zrobione == 'TAK' %}checked{% endif %} onclick="updateHiddenInput()" style="transform: scale(1.8);">
+                <input type="hidden" name="zrobione_hidden" id="zrobione_hidden" value="{% if obiekt.Zrobione == 'TAK' %}TAK{% else %}NIE{% endif %}">
+            </div>
+        </div>
+        <script>
+        function updateHiddenInput() {
+            var checkbox = document.getElementById("zrobione");
+            var hiddenInput = document.getElementById("zrobione_hidden");
+            if (checkbox.checked) {
+                hiddenInput.value = "TAK";
+            } else {
+                hiddenInput.value = "NIE";
+            }
+        }
+        </script>
         <button type="submit">Zapisz zmiany</button>
     </form>
 </div>
+
+
 <!-- Formularz -->

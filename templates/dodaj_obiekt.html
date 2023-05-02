@@ -87,10 +87,8 @@
             <div class="col-sm-1"></div>
             <label for="zrobione" class="col-sm-1 col-form-label">Zrobione?</label>
             <div class="col-sm-10 form-check form-switch">
-                <input class="form-check-input" type="checkbox" name="zrobione" id="zrobione" value="TAK"><br>
-                <label class="form-check-label mr-3" for="zrobione"></label>
-                <input type="hidden" name="zrobione" value="NIE">
-                <label class="form-check-label" for="zrobione"></label>
+                <input class="form-check-input" type="checkbox" name="zrobione" id="zrobione" {% if obiekt.Zrobione %}checked{% endif %} value="TAK">
+                <input type="hidden" name="zrobione_hidden" value="NIE">
             </div>
         </div>
 
