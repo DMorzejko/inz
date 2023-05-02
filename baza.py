@@ -18,6 +18,7 @@ def tabela():
     id = tabelaBazaId()
 
     i=0
+    nowy_obiekt_url = url_for('routes.nowy_obiekt')
     html = """
     <script>
     function editSelectedObiekt() {
@@ -37,18 +38,39 @@ def tabela():
             alert('Proszę zaznaczyć obiekt do edycji.');
         }
     }
+    function deleteSelectedObiekt() {
+    var checkboxes = document.querySelectorAll('input[type=checkbox]');
+    var selectedId = null;
+
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+            selectedId = checkboxes[i].id.replace('checkbox_', '');
+            break;
+        }
+    }
+
+    if (selectedId !== null) {
+        if (confirm('Czy na pewno chcesz usunąć ten obiekt?')) {
+            location.href = '/delete/' + selectedId;
+        }
+    } else {
+        alert('Proszę zaznaczyć obiekt do usunięcia.');
+    }
+}
     </script>
     <div class="form-tytul">
     <br>
             <span class="tytul2"><h2>Tabela obiektów</h2></span>
             </div>
             <div class="przyciski"><br>
-            <br>
-            <a href="/nowy_obiekt" class="btn btn-light btn-lg"><span class="link">Dodaj Obiekt</span></a>
-            <button name="edytuj" id="button_edytuj" type="edit" class="btn btn-light btn-lg" onclick="editSelectedObiekt()">Edytuj / Pokaż</button>
-            <button name="usun" id="button_usun" type="delete" class="btn btn-light btn-lg">Usuń</button>
-            <br><br>""" \
-           "<table class=\"Tabela-obiektow table table-success table-striped\">\n"
+            <br>"""
+    html += f"""
+            <a href="{nowy_obiekt_url}" class="btn btn-light btn-lg"><span class="link">Dodaj Obiekt</span></a>            <button name="edytuj" id="button_edytuj" type="edit" class="btn btn-light btn-lg" onclick="editSelectedObiekt()">Edytuj / Pokaż</button>
+            """
+    html += """
+            <button name="usun" id="button_usun" type="button" class="btn btn-light btn-lg" onclick="deleteSelectedObiekt()">Usuń</button>
+            <br><br>
+           "<table class=\"Tabela-obiektow table table-success table-striped\">\n"""
     html += "<tr><td>Zaznacz</td><td>Nazwa Obiektu</td><td>Klient</td><td>Ulica</td><td>Numer budynku</td><td>Kod Pocztowy</td>" \
             "<td>Miasto</td><td>Czynność</td><td>Ilość Bram</td><td>Uwagi</td><td>Zrobione?</td></tr>\n"
     for obiekt in wynik:
@@ -59,8 +81,7 @@ def tabela():
     html += "</table>\n"
     return html
 
-# Zwraca liste wszystkich krwiodawców z bazy danych
-# ( result[0] to lista danych jednego krwiodawcy, a np. result[0][0] to id pierwszego kriwodawcy )
+
 def tabelaBaza():
     conn = DbConnection()
     sql = "SELECT Id, Nazwa, Klient, Ulica, Numer_Budynku, Kod_pocztowy, " \
@@ -102,61 +123,31 @@ def tabelaBazaId():
 def update_obiekt(obiekt_id, updated_data):
     conn = DbConnection()
     sql = """UPDATE Obiekt SET Nazwa=%s, Klient=%s, Ulica=%s, Numer_Budynku=%s,
-             Kod_pocztowy=%s, Miasto=%s, Czynnosc=%s, Ilosc_bram=%s, Uwagi=%s, Zrobione=%s
+             Kod_Pocztowy=%s, Miasto=%s, Czynnosc=%s, Ilosc_Bram=%s, Uwagi=%s, Zrobione=%s
              WHERE Id=%s;"""
     conn.execute(sql, (*updated_data, obiekt_id))
     conn.commit()
     del conn
 
-
-# Zwraca dane krwiodawcy o podanym id w postaci listy
-def krwiodawca(id):
+def delete_obiekt(obiekt_id):
     conn = DbConnection()
-    conn.execute('SELECT * FROM Krwiodawcy WHERE Id=' + str(id))
-    result = conn.getData()[0]
-    del conn
-    return result
-
-
-# Zwraca listę stanów krwi, przy podaniu id oddziału zwraca stany w ml dla danego oddziału z podziałem na grupy
-
-# zwraca listę oddziałów wraz z adresem
-
-
-# Dodaje krwiodawce do bazy danych, należy podać listę danych do funkcji
-# Format: # [grupaKrwi_id, 'Stefan', 'Nowak', 'M', '12-10-1945', '12345678901', 'Struga 12, Opole', 'Opis']
-def dodajObiekt(data):
-    conn = DbConnection()
-    sql = 'SELECT MAX(Id) FROM Obiekt'
-    conn.execute(sql)
-    Id = conn.getData()[0][0] + 1
-    sql = "INSERT INTO Obiekt (id, Nazwa, Klient, Ulica, Numer_Budynku, Kod_Pocztowy, Miasto, Osoba_Kontaktowa, "\
-        "Numer_Kontaktowy, Czynnosc, Ilosc_bram, Uwagi, Zrobione) VALUES ({}, '{}','{}','{}','{}','{}','{}', '{}', '{}', '{}', '{}', '{}', '{}')"\
-        .format(Id, data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11])
-    conn.execute(sql)
-    conn.commit()
-    print(sql)
-    del conn
-
-
-# Zmiania dane krwiodawcy o danym id. W argumecie id należy podać id krwiodawcy,
-# w data - tablicę danych [grupaKrwi_id, imie, nazwisko, płeć, data_urodzenia, pesel, adres, dodatkowy_opis]
-'''def edytujKrwiodawce(id, data):
-    conn = DbConnection()
-    sql = f'UPDATE Krwiodawcy SET ' \
-          f'grupy_krwi_id = {data[0]}, ' \
-          f'imie = {data[1]}, ' \
-          f'nazwisko = {data[2]}, ' \
-          f'plec = {data[3]}, ' \
-          f'data_urodzenia = {data[4]}, ' \
-          f'pesel = {data[5]}, ' \
-          f'adres = {data[6]}, ' \
-          f'dodatkowy_opis = {data[7]} ' \
-          f'WHERE id = {id}'
-    conn.execute(sql)
+    sql = "DELETE FROM Obiekt WHERE Id = %s;"
+    conn.execute(sql, (obiekt_id,))
     conn.commit()
     del conn
-'''
+
+def dodaj_obiekt_baza(nazwa, klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, zrobione):
+    conn = DbConnection()
+    sql = '''
+        INSERT INTO Obiekt (Nazwa, Klient, Ulica, Numer_Budynku, Kod_Pocztowy, Miasto, Osoba_Kontaktowa, Numer_Kontaktowy, Czynnosc, Ilosc_Bram, Uwagi, Zrobione)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    '''
+    conn.execute(sql, (nazwa, klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, zrobione))
+    conn.commit()
+    del conn
+
+
+
 
 
 

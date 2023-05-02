@@ -1,0 +1,37 @@
+<!-- TABELA -->
+<div class="form-tytul">
+    <br>
+    <span class="tytul2"><h2>Tabela obiektów</h2></span>
+</div>
+
+<div class="przyciski"><br>
+    <br>
+    <a href="{{ url_for('routes.dodaj_obiekt') }}" class="btn btn-light btn-lg"><span class="link">Dodaj Obiekt</span></a>
+    <button name="edytuj" id="button_edytuj" type="edit" class="btn btn-light btn-lg" onclick="editSelectedObiekt()">Edytuj / Pokaż</button>
+    <a href="{{ url_for('routes.delete_obiekt_route', obiekt_id=obiekt.Id) }}" class="btn btn-light btn-lg" onclick="return confirm('Czy na pewno chcesz usunąć ten obiekt?');">Usuń</a>
+    <br><br>
+</div>
+
+<table class="Tabela-obiektow table table-success table-striped">
+    <tr>
+        <td>Zaznacz</td>
+        <td>Nazwa Obiektu</td>
+        <td>Klient</td>
+        <td>Ulica</td>
+        <td>Numer budynku</td>
+        <td>Kod Pocztowy</td>
+        <td>Miasto</td>
+        <td>Czynność</td>
+        <td>Ilość Bram</td>
+        <td>Uwagi</td>
+        <td>Zrobione?</td>
+    </tr>
+    {% for obiekt in wynik %}
+        <tr>
+            <td><input type="checkbox" id="checkbox_{{ obiekt[0] }}" name="checkbox_{{ obiekt[0] }}"><span></span></td>
+            {% for pole in obiekt[1:] %}
+                <td>{{ pole }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>

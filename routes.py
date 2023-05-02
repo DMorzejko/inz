@@ -44,40 +44,42 @@ def edit_obiekt(obiekt_id):
             request.form['zrobione'] == 'on'
         )
         update_obiekt(obiekt_id, updated_data)
-        return redirect(url_for('tabela'))
+        return redirect(url_for('routes.W_tabela'))
     tresc = render_template('edit_obiekt.html', obiekt=obiekt)
-    return wyswietl(1, ["Edycja obiektu", tresc, ['']])
+    return wyswietl(1, ["Edycja obiektu", tresc, ['style.css']])
 @routes.route('/kontakt')
 def W_funkcja2():
     return wyswietl(1, ["Kontakt", kontakt(), ['']])
 
-@routes.route('/nowy_obiekt')
-def W_nowy_obiekt():
-    return wyswietl(1, ["Nowy Obiekt", poziomy(), ['']])
+@routes.route('/delete/<int:obiekt_id>')
+def delete_obiekt_route(obiekt_id):
+    delete_obiekt(obiekt_id)
+    return redirect(url_for('routes.W_tabela'))
 
 
-@routes.route('/nowy_obiekt_odbierz', methods = ['POST'])
-def W_nowy_pacjent_odbierz():
-    # Pobierz dane z formularza
-    imie = request.form['imie']
-    nazwisko = request.form['nazwisko']
-    plec = request.form['plec']
-    data_ur = request.form['data']
-    gk_id = request.form['grupakrwi_id']
-    adres = request.form['adres']
-    opis = request.form['opis']
-    pesel = request.form['pesel']
+@routes.route('/nowy_obiekt', methods=['GET', 'POST'])
+def nowy_obiekt():
+    if request.method == 'POST':
+        nazwa = request.form['nazwa']
+        klient = request.form['klient']
+        ulica = request.form['ulica']
+        numer_budynku = request.form['numer_budynku']
+        kod_pocztowy = request.form['kod_pocztowy']
+        miasto = request.form['miasto']
+        osoba_kontaktowa = request.form['osoba_kontaktowa']
+        numer_kontaktowy = request.form['numer_kontaktowy']
+        czynnosc = request.form['czynnosc']
+        ilosc_bram = request.form['ilosc_bram']
+        uwagi = request.form['uwagi']
+        zrobione = request.form['zrobione']
 
-    # Wstaw dane do bazy
-    dane = [gk_id, imie, nazwisko, plec, data_ur, pesel, adres, opis]
-    dodajObiekt(dane)
+        dodaj_obiekt_baza(nazwa, klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, zrobione)
+        return redirect(url_for('routes.W_tabela'))
 
-    # Wyswietl jakis testowy HTML
-    html = "<h1>Dodano " + imie + " " + nazwisko + ".</h1>"
-    html += "<a href=\"/krwiodawcy\">Zobacz</a><br><br>"
-    html += "<a href=\"/nowy_pacjent\">Dodaj kolejny</a><br>"
+    tresc = render_template('dodaj_obiekt.html')
+    return wyswietl(1, ["Dodaj nowy obiekt", tresc, ['style.css']])
 
-    return wyswietl(1, ["Nowy Pacjent", html, ['']])
+
 
 
 

@@ -3,7 +3,7 @@
     <div class="form-tytul">
         <span class="tytul2"><h2>Edycja obiektu</h2></span>
     </div>
-
+<br><br>
     <form action="{{ url_for('routes.edit_obiekt', obiekt_id=obiekt.Id) }}" method="POST">
         <label for="nazwa">Nazwa Obiektu:</label>
         <input type="text" name="nazwa" id="nazwa" value="{{ obiekt.Nazwa }}" required><br>
@@ -14,13 +14,13 @@
         <label for="numer_budynku">Numer Budynku:</label>
         <input type="text" name="numer_budynku" id="numer_budynku" value="{{ obiekt.Numer_Budynku }}" required><br>
         <label for="kod_pocztowy">Kod Pocztowy:</label>
-        <input type="text" name="kod_pocztowy" id="kod_pocztowy" value="{{ obiekt.Kod_pocztowy }}" required><br>
+        <input type="text" name="kod_pocztowy" id="kod_pocztowy" value="{{ obiekt.Kod_Pocztowy }}" required><br>
         <label for="miasto">Miasto:</label>
         <input type="text" name="miasto" id="miasto" value="{{ obiekt.Miasto }}" required><br>
         <label for="czynnosc">Czynność:</label>
         <input type="text" name="czynnosc" id="czynnosc" value="{{ obiekt.Czynnosc }}" required><br>
         <label for="ilosc_bram">Ilość Bram:</label>
-        <input type="number" name="ilosc_bram" id="ilosc_bram" value="{{ obiekt.Ilosc_bram }}" required><br>
+        <input type="number" name="ilosc_bram" id="ilosc_bram" value="{{ obiekt.Ilosc_Bram }}" required><br>
         <label for="uwagi">Uwagi:</label>
         <textarea name="uwagi" id="uwagi">{{ obiekt.Uwagi }}</textarea><br>
         <label for="zrobione">Zrobione?</label>

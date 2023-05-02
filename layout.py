@@ -12,7 +12,7 @@ def layoutt(args):
     css_lista = ""
     for i in style:
         if i != '':
-            css_lista += "<link rel=\"stylesheet\" href=\"/" + i + "\">\n      "
+            css_lista += f'<link rel="stylesheet" href="{url_for("static", filename=i)}">\n  '
     n = render_template('l2-naglowek.html')
     s = render_template('l2-stopka.html', wersja="1.0")
     return render_template('l2-strona.html', css=css_lista, naglowek=n, stopka=s, title=tytul, tresc=tresc)
