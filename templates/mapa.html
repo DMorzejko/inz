@@ -4,6 +4,10 @@
         <div class="ikona2"></div>
         <span class="tytul2"><h2>Tu powinna być wyświetlana mapa.</h2></span>
         <br><br>
+            <div class="show-completed">
+        <input type="checkbox" id="show-completed" checked>
+        <label for="show-completed">Pokaż wykonane serwisy</label>
+    </div>
     </div>
     <div id="map" style="center"></div>
     <script>
@@ -12,22 +16,26 @@
 </div>
 <!-- Mapa -->
 
-
-
 <!-- Skrypt inicjalizujący mapę -->
-
-
 <script>
-    var obiekty = JSON.parse(obiekty_json);
-    var map;
+var markers = []; // Dodajemy nową zmienną do przechowywania markerów
+var obiekty = JSON.parse(obiekty_json);
+var map;
 
-    function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: 52.2297, lng: 21.0122 }, // Centrum mapy, np. Warszawa
-            zoom: 6
-        });
+// Nowa funkcja do aktualizacji markerów na mapie
+function updateMarkers() {
+    var showCompleted = document.getElementById('show-completed').checked;
 
-        obiekty.forEach(function (obiekt) {
+    // Usuń istniejące markery z mapy
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+
+    // Wyczyść tablicę markerów
+    markers = [];
+
+    obiekty.forEach(function (obiekt) {
+        if (showCompleted || obiekt.Zrobione !== 'TAK') {
             var geocoder = new google.maps.Geocoder();
             geocoder.geocode({
                 address: obiekt.Ulica + ' ' + obiekt.Numer_Budynku + ', ' + obiekt.Kod_Pocztowy + ' ' + obiekt.Miasto
@@ -38,11 +46,28 @@
                         position: results[0].geometry.location,
                         title: obiekt.Nazwa
                     });
+
+                    // Dodajemy nowy marker do tablicy markerów
+                    markers.push(marker);
                 } else {
                     console.log('Geocode was not successful for the following reason: ' + status);
                 }
             });
-        });
-    }
+        }
+    });
+}
+
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 52.2297, lng: 21.0122 }, // Centrum mapy, np. Warszawa
+        zoom: 6
+    });
+    updateMarkers();
+}
+
+// Dodajemy nasłuchiwanie zdarzeń na checkbox
+document.getElementById('show-completed').addEventListener('change', function () {
+    updateMarkers();
+});
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAznj5An3LQaZ3Lo-5NcjT895dFvgyQwg8&callback=initMap"></script>
