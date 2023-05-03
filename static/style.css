@@ -145,8 +145,8 @@ h1 {
 /* Ustawiając szerokość i wysokość mapy na 100% sprawia, że zajmuje ona całą dostępną przestrzeń */
 #map {
     width: 100%;
-    height: 100%;
-    margin-top: 70%;
+    height: 80%;
+    margin-top: 15%;
 }
 
 /* Style dla kontenera, który obejmuje mapę */

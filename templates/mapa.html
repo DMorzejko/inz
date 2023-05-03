@@ -3,15 +3,21 @@
     <div class="form-tytul">
         <div class="ikona2"></div>
         <span class="tytul2"><h2>Tu powinna być wyświetlana mapa.</h2></span>
-        <br><br>
+
             <div class="show-completed">
         <input type="checkbox" id="show-completed" checked>
-        <label for="show-completed">Pokaż wykonane serwisy</label>
+        <label for="show-completed">Ukryj wykonane serwisy</label>
     </div>
+    <button id="toggle-status">Zmień status serwisu</button>
     </div>
     <div id="map" style="center"></div>
+
     <script>
         var obiekty_json = '{{ obiekty_json|safe }}';
+        var obiekty = JSON.parse(obiekty_json);
+        var completedIconUrl = '{{ url_for("static", filename="grafiki/done.png") }}';
+        var incompleteIconUrl = '{{ url_for("static", filename="grafiki/todo.png") }}';
+        var urgentIconUrl = '{{ url_for("static", filename="grafiki/urgent.png") }}';
     </script>
 </div>
 <!-- Mapa -->
@@ -19,10 +25,13 @@
 <!-- Skrypt inicjalizujący mapę -->
 <script>
 var markers = []; // Dodajemy nową zmienną do przechowywania markerów
-var obiekty = JSON.parse(obiekty_json);
+//var obiekty = JSON.parse(obiekty_json);
 var map;
+//var infoWindow = new google.maps.InfoWindow();
 
-// Nowa funkcja do aktualizacji markerów na mapie
+
+
+
 function updateMarkers() {
     var showCompleted = document.getElementById('show-completed').checked;
 
@@ -34,6 +43,9 @@ function updateMarkers() {
     // Wyczyść tablicę markerów
     markers = [];
 
+    // Dodaj infoWindow
+    var infoWindow = new google.maps.InfoWindow();
+
     obiekty.forEach(function (obiekt) {
         if (showCompleted || obiekt.Zrobione !== 'TAK') {
             var geocoder = new google.maps.Geocoder();
@@ -44,11 +56,25 @@ function updateMarkers() {
                     var marker = new google.maps.Marker({
                         map: map,
                         position: results[0].geometry.location,
-                        title: obiekt.Nazwa
+                        title: obiekt.Nazwa,
+                        icon: obiekt.Zrobione === 'TAK' ? completedIconUrl : incompleteIconUrl
                     });
 
                     // Dodajemy nowy marker do tablicy markerów
                     markers.push(marker);
+
+                    // Dodaj funkcję obsługi zdarzeń kliknięcia na marker
+                    marker.addListener('click', function () {
+                        // Utwórz zawartość dymka z nazwą obiektu i czynnością
+                        var infoWindowContent = '<div><strong>' + obiekt.Nazwa + '</strong><br>' + obiekt.Czynnosc + '</div>';
+
+                        // Ustaw zawartość dymka
+                        infoWindow.setContent(infoWindowContent);
+
+                        // Otwórz dymek na klikniętym markerze
+                        infoWindow.open(map, marker);
+                    });
+
                 } else {
                     console.log('Geocode was not successful for the following reason: ' + status);
                 }
@@ -56,6 +82,10 @@ function updateMarkers() {
         }
     });
 }
+
+
+
+
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -69,5 +99,6 @@ function initMap() {
 document.getElementById('show-completed').addEventListener('change', function () {
     updateMarkers();
 });
+
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAznj5An3LQaZ3Lo-5NcjT895dFvgyQwg8&callback=initMap"></script>
