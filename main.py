@@ -43,7 +43,7 @@ aplikacja.register_blueprint(baza)
         password_characters =  string.ascii_letters #+ string.digits + string.punctuation
         random_password = ''.join(random.choice(password_characters)for i in range(3))
         self.password = random_password
-'''
+
 @aplikacja.route('/init_app')
 def init_app():
     conn = DbConnection()
@@ -51,7 +51,7 @@ def init_app():
     conn.execute(sql)
     result = conn.getData()
     active_admins = result.fetchone()
-
+'''
 
 
 @aplikacja.route("/")
