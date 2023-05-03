@@ -1,5 +1,4 @@
 # Funkcje łączące do bazy danych - wyświetlanie, wstawienie, usuwanie, itp.
-from datetime import datetime
 from flask import *
 
 baza = Blueprint('baza', __name__)
