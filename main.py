@@ -62,4 +62,5 @@ def index():
 # i zobacz czy dziala
 if __name__ == "__main__":
 
-    aplikacja.run(host="127.0.0.1", port=8080, debug=True)
+    #aplikacja.run(host="127.0.0.1", port=8080, debug=True)
+    aplikacja.run()

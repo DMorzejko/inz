@@ -5,10 +5,7 @@ from flask import *
 baza = Blueprint('baza', __name__)
 
 import mysql.connector
-import random
-import string
-import hashlib
-import binascii
+
 
 
 
