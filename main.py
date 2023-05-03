@@ -3,14 +3,18 @@
 from flask import *
 aplikacja = Flask(__name__, )
 from routes import *
-import os
+'''import os
 import mysql.connector
+import random
+import string
+import hashlib
+import binascii'''
 
 aplikacja.register_blueprint(funkcje)
 aplikacja.register_blueprint(routes)
 aplikacja.register_blueprint(layout)
 aplikacja.register_blueprint(baza)
-class UserPass:
+'''class UserPass:
     def __init__(self, user='', password=''):
         self.user = user
         self.password = password
@@ -39,7 +43,7 @@ class UserPass:
         password_characters =  string.ascii_letters #+ string.digits + string.punctuation
         random_password = ''.join(random.choice(password_characters)for i in range(3))
         self.password = random_password
-
+'''
 @aplikacja.route('/init_app')
 def init_app():
     conn = DbConnection()
@@ -59,4 +63,3 @@ def index():
 if __name__ == "__main__":
 
     aplikacja.run(host="127.0.0.1", port=8080, debug=True)
-    aplikacja.run()
