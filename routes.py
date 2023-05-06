@@ -113,9 +113,6 @@ def pobierz_obiekty_z_bazy():
     for obiekt_raw in obiekty_raw:
         obiekt = Obiekt(*obiekt_raw)
         obiekty.append(obiekt)
-
-    for obiekt in obiekty:  # Dodaj tę pętlę
-        print(vars(obiekt))  # Dodaj tę linijkę
     return obiekty
 
 
