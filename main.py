@@ -188,7 +188,7 @@ class Obiekt:
         self.Zrobione = zrobione
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
 
 
 #Poprawiony kod uwzględnia importy, dekoratory i metody potrzebne dla aplikacji Flask oraz zdefiniowane funkcje i klasy. Pamiętaj, aby również zaimportować moduły odpowiedzialne za funkcje `get_obiekt_by_id`, `delete_obiekt` oraz `DbConnection`. Upewnij się, że wszystkie zależności są zainstalowane przed uruchomieniem aplikacji.

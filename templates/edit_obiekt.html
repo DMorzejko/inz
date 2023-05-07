@@ -4,7 +4,7 @@
         <span class="tytul2"><h2>Edycja obiektu</h2></span>
     </div>
 <br><br>
-    <form action="{{ url_for('routes.edit_obiekt', obiekt_id=obiekt.Id) }}" method="POST">
+    <form action="{{ url_for('edit_obiekt', obiekt_id=obiekt.Id) }}" method="POST">
         <div class="form-group row">
             <div class="col-sm-1"></div>
                 <label for="nazwa" class="col-sm-1 col-form-label">Nazwa Obiektu:</label>
