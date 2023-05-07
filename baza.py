@@ -1,6 +1,7 @@
 # Funkcje łączące do bazy danych - wyświetlanie, wstawienie, usuwanie, itp.
 from flask import *
 
+
 baza = Blueprint('baza', __name__)
 
 import mysql.connector
@@ -14,7 +15,7 @@ def tabela():
     id = tabelaBazaId()
 
     i=0
-    nowy_obiekt_url = url_for('routes.nowy_obiekt')
+    nowy_obiekt_url = url_for('nowy_obiekt')
     html = """
     <script>
     function editSelectedObiekt() {
@@ -141,6 +142,54 @@ def dodaj_obiekt_baza(nazwa, klient, ulica, numer_budynku, kod_pocztowy, miasto,
     conn.execute(sql, (nazwa, klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, zrobione))
     conn.commit()
     del conn
+
+def get_user_by_username(username):
+    from main import User
+    conn = DbConnection()
+    sql = "SELECT * FROM users WHERE username = %s"
+    conn.execute(sql, (username,))
+    user_data = conn.getData()
+
+    if user_data:
+        user_id = user_data[0][0]
+        password = user_data[0][2]
+        email = user_data[0][3]
+        is_active = user_data[0][4]
+        is_admin = user_data[0][5]
+
+        user = User(user_id, username, password, email, is_active, is_admin)
+        return user
+
+    return None
+
+def get_user_by_id(user_id):
+    conn = DbConnection()
+    conn.execute("SELECT id, username, password, email, is_active, is_admin FROM users WHERE id = %s", (user_id,))
+    user = conn.getData()
+    if user:
+        return User(*user[0])
+    return None
+
+
+class User:
+    def __init__(self, id, username, password, email, is_active, is_admin):
+        self.id = id
+        self.username = username
+        self.password = password
+        self.email = email
+        self.is_active = is_active
+        self.is_admin = is_admin
+
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return self.is_active
+
+    def is_anonymous(self):
+        return False
+    def get_id(self):
+        return str(self.id)
 
 
 

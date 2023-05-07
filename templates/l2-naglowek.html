@@ -1,19 +1,26 @@
 <!-- NAGLOWEK -->
 <div class="naglowek">
     <div class="nag">
-        <table class="naglowek-tab"><tr>
-        <td class="td-nag td-n1">
-            <a href="/"><img class="i_logo" src="/static/grafiki/logo.svg" alt="Logo Serwis"></a>
-        </td>
-        <td class="td-nag td-n2"><span class="serwis">Serwis Bram <br> Przeciwpożarowych</span></td>
-        <td class="td-nag td-n3"><span class="naglowek_tekst"> </span></td>
-        <td class="td-nag td-n5"><a href="/tabela"><span class="naglowek_tekst">Tabela</span></a></td>
-        <td class="td-nag td-n5"><a href="/mapa"><span class="naglowek_tekst">Mapa</span></a></td>
-        <td class="td-nag td-n2"><a href="/projekt"><span class="naglowek_tekst">O projekcie</span></a></td>
-        <td class="td-nag td-n5"><a href="/kontakt"><span class="naglowek_tekst">Kontakt</span></a></td>
-        <td class="td-nag td-n5"><a href="/logowanie"><span class="naglowek_tekst">Logowanie</span></a></td>
-        </tr></table>
+        <table class="naglowek-tab">
+            <tr>
+                <td class="td-nag td-n1">
+                    <a href="/"><img class="i_logo" src="/static/grafiki/logo.svg" alt="Logo Serwis"></a>
+                </td>
+                <td class="td-nag td-n2"><span class="serwis">Serwis Bram <br> Przeciwpożarowych</span></td>
+                <td class="td-nag td-n3"><span class="naglowek_tekst"> </span></td>
+                <td class="td-nag td-n5"><a href="/tabela"><span class="naglowek_tekst">Tabela</span></a></td>
+                <td class="td-nag td-n5"><a href="/mapa"><span class="naglowek_tekst">Mapa</span></a></td>
+                <td class="td-nag td-n2"><a href="/projekt"><span class="naglowek_tekst">O projekcie</span></a></td>
+                <td class="td-nag td-n5"><a href="/kontakt"><span class="naglowek_tekst">Kontakt</span></a></td>
+                <td class="td-nag td-n5">
+                    {% if current_user.is_authenticated %}
+                        <a href="/wyloguj"><span class="naglowek_tekst">Wyloguj</span></a>
+                    {% else %}
+                        <a href="/logowanie"><span class="naglowek_tekst">Zaloguj</span></a>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
     </div>
-
 </div>
 <!-- NAGLOWEK -->
