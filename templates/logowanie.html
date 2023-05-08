@@ -5,15 +5,15 @@
     </div>
 
 
-    <form action="{{ url_for('W_logowanie') }}" method="post">
+    <form action="{{ url_for('W_logowanie') }}" method="post" autocomplete="off">
         <div class="projekt">
               <div class="form-group">
                   <label for="username"><span class="tekst2">Adres email</span></label>
-                  <input type="text" id="username" name="username" placeholder="Tu wpisz login">
+                  <input type="text" id="username" name="username" placeholder="Tu wpisz login" autocomplete="new-username">
               </div>
               <div class="form-group">
                   <label for="password"><span class="tekst2">Hasło</span></label>
-                  <input type="password" class="pole4" id="password" name="password" placeholder="Password">
+                  <input type="password" class="pole4" id="password" name="password" placeholder="Password" autocomplete="new-password">
               </div>
 
         <button class="reset" type="reset">Reset</button>
