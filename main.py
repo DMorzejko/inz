@@ -5,11 +5,11 @@ from layout import *
 from funkcje import *
 import requests
 
-app = Flask(__name__)
-app.secret_key = 'tajny_klucz'
+aplikacja = Flask(__name__)
+aplikacja.secret_key = 'tajny_klucz'
 
 login_manager = LoginManager()
-login_manager.init_app(app)
+login_manager.init_app(aplikacja)
 login_manager.login_view = "W_logowanie"
 
 @login_manager.user_loader
@@ -24,11 +24,11 @@ def verify_login_credentials(username, password):
 
 
 
-@app.route("/")
+@aplikacja.route("/")
 def index():
     return wyswietl(1, ["Inz", glowna(), ['']])
 
-@app.route('/logowanie', methods=['GET', 'POST'])
+@aplikacja.route('/logowanie', methods=['GET', 'POST'])
 def W_logowanie():
     if request.method == 'POST':
         username = request.form['username']
@@ -44,22 +44,22 @@ def W_logowanie():
     else:
         return wyswietl(1, ["Logowanie", logowanie(), ['']])
 
-@app.route('/wyloguj')
+@aplikacja.route('/wyloguj')
 @login_required
 def wyloguj():
     logout_user()
     return redirect(url_for('W_logowanie'))
 
-@app.route('/projekt')
+@aplikacja.route('/projekt')
 def W_projekt():
     return wyswietl(1, ["Logowanie", info(), ['']])
 
-@app.route('/tabela')
+@aplikacja.route('/tabela')
 @login_required
 def W_tabela():
     return wyswietl(1, ["Tabela obiektów", tabela(), ['']])
 
-@app.route('/mapa')
+@aplikacja.route('/mapa')
 @login_required
 def W_mapa():
     obiekty = pobierz_obiekty_z_bazy()
@@ -67,7 +67,7 @@ def W_mapa():
     tresc = render_template('mapa.html', obiekty_json=obiekty_json)
     return wyswietl(1, ["Mapa", tresc, ['style.css']])
 
-@app.route('/edit/<int:obiekt_id>', methods=['GET', 'POST'])
+@aplikacja.route('/edit/<int:obiekt_id>', methods=['GET', 'POST'])
 @login_required
 def edit_obiekt(obiekt_id):
     obiekt = get_obiekt_by_id(obiekt_id)
@@ -96,17 +96,17 @@ def edit_obiekt(obiekt_id):
     tresc = render_template('edit_obiekt.html', obiekt=obiekt)
     return wyswietl(1, ["Edycja obiektu", tresc, ['style.css']])
 
-@app.route('/kontakt')
+@aplikacja.route('/kontakt')
 def W_funkcja2():
     return wyswietl(1, ["Kontakt", kontakt(), ['']])
 
-@app.route('/delete/<int:obiekt_id>')
+@aplikacja.route('/delete/<int:obiekt_id>')
 @login_required
 def delete_obiekt_route(obiekt_id):
     delete_obiekt(obiekt_id)
     return redirect(url_for('W_tabela'))
 
-@app.route('/nowy_obiekt', methods=['GET', 'POST'])
+@aplikacja.route('/nowy_obiekt', methods=['GET', 'POST'])
 @login_required
 def nowy_obiekt():
     if request.method == 'POST':
@@ -188,7 +188,4 @@ class Obiekt:
         self.Zrobione = zrobione
 
 if __name__ == "__main__":
-    app.run()
-
-
-#Poprawiony kod uwzględnia importy, dekoratory i metody potrzebne dla aplikacji Flask oraz zdefiniowane funkcje i klasy. Pamiętaj, aby również zaimportować moduły odpowiedzialne za funkcje `get_obiekt_by_id`, `delete_obiekt` oraz `DbConnection`. Upewnij się, że wszystkie zależności są zainstalowane przed uruchomieniem aplikacji.
+    aplikacja.run()
