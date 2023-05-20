@@ -15,11 +15,19 @@
                   <label for="password"><span class="tekst2">Hasło</span></label>
                   <input type="password" class="pole4" id="password" name="password" placeholder="Password" autocomplete="new-password">
               </div>
-
+        <div class="g-recaptcha" data-sitekey="6LebTSYmAAAAAOJrSmLVi_rOj-U6CgjT-zHQ_bfL"></div>
         <button class="reset" type="reset">Reset</button>
         <input type="submit" value="Zaloguj się">
         </div>
         <br><br><br>
     </form>
 </div>
+<script src="https://www.google.com/recaptcha/enterprise.js?render=6LebTSYmAAAAAOJrSmLVi_rOj-U6CgjT-zHQ_bfL"></script>
+<script>
+grecaptcha.enterprise.ready(function() {
+    grecaptcha.enterprise.execute('6LebTSYmAAAAAOJrSmLVi_rOj-U6CgjT-zHQ_bfL', {action: 'login'}).then(function(token) {
+       ...
+    });
+});
+</script>
 <!-- Logowanie -->
