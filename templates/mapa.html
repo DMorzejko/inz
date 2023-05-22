@@ -29,9 +29,6 @@ var markers = []; // Dodajemy nową zmienną do przechowywania markerów
 var map;
 //var infoWindow = new google.maps.InfoWindow();
 
-
-
-
 function updateMarkers() {
     var showCompleted = document.getElementById('show-completed').checked;
 
@@ -57,7 +54,7 @@ function updateMarkers() {
                         map: map,
                         position: results[0].geometry.location,
                         title: obiekt.Nazwa,
-                        icon: obiekt.Zrobione === 'TAK' ? completedIconUrl : incompleteIconUrl
+                        icon: obiekt.Zrobione === 'TAK' ? completedIconUrl : (obiekt.Pilne === 'TAK' ? urgentIconUrl : incompleteIconUrl)
                     });
 
                     // Dodajemy nowy marker do tablicy markerów

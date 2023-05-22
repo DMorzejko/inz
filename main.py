@@ -5,7 +5,7 @@ from layout import *
 from funkcje import *
 import requests
 
-from google.cloud import recaptchaenterprise_v1
+'''from google.cloud import recaptchaenterprise_v1
 from google.cloud.recaptchaenterprise_v1 import Assessment
 
 
@@ -69,7 +69,7 @@ def create_assessment(
         assessment_name = client.parse_assessment_path(response.name).get("assessment")
         print(f"Assessment name: {assessment_name}")
     return response
-
+'''
 
 aplikacja = Flask(__name__)
 aplikacja.secret_key = 'tajny_klucz'
@@ -87,8 +87,6 @@ def verify_login_credentials(username, password):
     if user is not None and user.password == password:
         return True
     return False
-
-
 
 @aplikacja.route("/")
 def index():
@@ -154,6 +152,7 @@ def edit_obiekt(obiekt_id):
             request.form['czynnosc'],
             request.form['ilosc_bram'],
             request.form['uwagi'],
+            'TAK' if request.form['pilne_hidden'] == 'TAK' else 'NIE',
             'TAK' if request.form['zrobione_hidden'] == 'TAK' else 'NIE'
         )
         update_obiekt(obiekt_id, updated_data)
@@ -187,9 +186,10 @@ def nowy_obiekt():
         czynnosc = request.form['czynnosc']
         ilosc_bram = request.form['ilosc_bram']
         uwagi = request.form['uwagi']
+        pilne = request.form['pilne']
         zrobione = request.form['zrobione']
 
-        dodaj_obiekt_baza(nazwa, klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, zrobione)
+        dodaj_obiekt_baza(nazwa, klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, pilne, zrobione)
         return redirect(url_for('W_tabela'))
 
     pusty_obiekt = {
@@ -204,6 +204,7 @@ def nowy_obiekt():
         'Czynnosc': '',
         'Ilosc_Bram': '',
         'Uwagi': '',
+        'Pilne': '',
         'Zrobione': ''
     }
 
@@ -238,7 +239,7 @@ def adres_na_wspolrzedne(adres, api_key):
     return None, None
 
 class Obiekt:
-    def __init__(self, id, nazwa,klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, zrobione):
+    def __init__(self, id, nazwa,klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, pilne, zrobione):
         self.Id = id
         self.Nazwa = nazwa
         self.Klient = klient
@@ -251,7 +252,8 @@ class Obiekt:
         self.Czynnosc = czynnosc
         self.Ilosc_Bram = ilosc_bram
         self.Uwagi = uwagi
+        self.Pilne = pilne
         self.Zrobione = zrobione
 
 if __name__ == "__main__":
-    aplikacja.run()
+    aplikacja.run(debug=True)

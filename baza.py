@@ -1,13 +1,8 @@
 # Funkcje łączące do bazy danych - wyświetlanie, wstawienie, usuwanie, itp.
 from flask import *
 
-
 baza = Blueprint('baza', __name__)
-
 import mysql.connector
-
-
-
 
 # Pobiera "surowe" dane z funkcji tabelaBaza() i wyswietla w tabelce
 def tabela():
@@ -69,7 +64,7 @@ def tabela():
             <br>
            "<table class=\"Tabela-obiektow table table-success table-striped\">\n"""
     html += "<tr><td>Zaznacz</td><td>Nazwa Obiektu</td><td>Klient</td><td>Ulica</td><td>Numer budynku</td><td>Kod Pocztowy</td>" \
-            "<td>Miasto</td><td>Czynność</td><td>Ilość Bram</td><td>Uwagi</td><td>Zrobione?</td></tr>\n"
+            "<td>Miasto</td><td>Czynność</td><td>Ilość Bram</td><td>Uwagi</td><td>Pilne</td><td>Zrobione?</td></tr>\n"
     for obiekt in wynik:
         html += '<tr><td><input type="checkbox" id="checkbox_{}" name="checkbox_{}" style="transform: scale(1.8);"><span></span></td>'.format(obiekt[0], obiekt[0])
         for pole in obiekt[1:]:
@@ -82,7 +77,7 @@ def tabela():
 def tabelaBaza():
     conn = DbConnection()
     sql = "SELECT Id, Nazwa, Klient, Ulica, Numer_Budynku, Kod_pocztowy, " \
-          "Miasto, Czynnosc, Ilosc_bram, Uwagi, Zrobione " \
+          "Miasto, Czynnosc, Ilosc_bram, Uwagi, Pilne, Zrobione " \
           "from Obiekt order by Nazwa;"
     conn.execute(sql)
     result = conn.getData()
@@ -90,7 +85,7 @@ def tabelaBaza():
     return result
 
 def list_to_dict(obiekt_list):
-    keys = ['Id', 'Nazwa', 'Klient', 'Ulica', 'Numer_Budynku', 'Kod_Pocztowy', 'Miasto', 'Osoba_Kontaktowa', 'Numer_Kontaktowy', 'Czynnosc', 'Ilosc_Bram', 'Uwagi', 'Zrobione']
+    keys = ['Id', 'Nazwa', 'Klient', 'Ulica', 'Numer_Budynku', 'Kod_Pocztowy', 'Miasto', 'Osoba_Kontaktowa', 'Numer_Kontaktowy', 'Czynnosc', 'Ilosc_Bram', 'Uwagi', 'Pilne', 'Zrobione']
     return {keys[i]: obiekt_list[i] for i in range(len(keys))}
 def get_obiekt_by_id(obiekt_id):
     conn = DbConnection()
@@ -120,7 +115,8 @@ def tabelaBazaId():
 def update_obiekt(obiekt_id, updated_data):
     conn = DbConnection()
     sql = """UPDATE Obiekt SET Nazwa=%s, Klient=%s, Ulica=%s, Numer_Budynku=%s,
-             Kod_Pocztowy=%s, Miasto=%s, Osoba_kontaktowa=%s, Numer_Kontaktowy=%s, Czynnosc=%s, Ilosc_Bram=%s, Uwagi=%s, Zrobione=%s
+             Kod_Pocztowy=%s, Miasto=%s, Osoba_kontaktowa=%s, Numer_Kontaktowy=%s,
+             Czynnosc=%s, Ilosc_Bram=%s, Uwagi=%s, Pilne=%s, Zrobione=%s
              WHERE Id=%s;"""
     conn.execute(sql, (*updated_data, obiekt_id))
     conn.commit()
@@ -133,13 +129,13 @@ def delete_obiekt(obiekt_id):
     conn.commit()
     del conn
 
-def dodaj_obiekt_baza(nazwa, klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, zrobione):
+def dodaj_obiekt_baza(nazwa, klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, pilne,  zrobione):
     conn = DbConnection()
     sql = '''
-        INSERT INTO Obiekt (Nazwa, Klient, Ulica, Numer_Budynku, Kod_Pocztowy, Miasto, Osoba_Kontaktowa, Numer_Kontaktowy, Czynnosc, Ilosc_Bram, Uwagi, Zrobione)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        INSERT INTO Obiekt (Nazwa, Klient, Ulica, Numer_Budynku, Kod_Pocztowy, Miasto, Osoba_Kontaktowa, Numer_Kontaktowy, Czynnosc, Ilosc_Bram, Uwagi, Pilne, Zrobione)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     '''
-    conn.execute(sql, (nazwa, klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, zrobione))
+    conn.execute(sql, (nazwa, klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, pilne, zrobione))
     conn.commit()
     del conn
 
@@ -198,8 +194,6 @@ class User:
 
 # klasa połączenia z bazą - utworzenie instancji klasy tworzy połączenie i ułatwia obsługe bazy
 class DbConnection:
-
-    # __init__ tworzy połączenie przy stworzeniu instancji klasy ( np. db = DbConnection() )
     def __init__(self):
         self.connection = mysql.connector.connect(
             host='mysql0.small.pl',
@@ -209,24 +203,16 @@ class DbConnection:
             database="m2518_inz",
             charset="utf8")
         self.cursor = self.connection.cursor()
-
-    # __del__ zamyka połączenie przy usunięciu instancji klasy ( np. del db )
     def __del__(self):
         self.cursor.close()
         self.connection.close()
-
-    # execute wykonuje podane polecenie sql ( np. db.execute('SELECT * FROM ...') )
     def execute(self, sql, params=None):
         if params is not None:
             self.cursor.execute(sql, params)
         else:
             self.cursor.execute(sql)
-
-    # zatwirdza wprowadzone do bazy zmiany ( np. db.commit() )
     def commit(self):
         self.connection.commit()
-
-    # zwraca dane z kursora w postaci listy, której każdy wiersz jest listą/wierszem z wyniku zapytania
     def getData(self):
         rowdata = []
         data = []
