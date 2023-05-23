@@ -1,5 +1,13 @@
 <!-- Logowanie -->
-
+<script>
+  grecaptcha.enterprise.ready(async () => {
+    const token = await grecaptcha.enterprise.execute('6LebTSYmAAAAAOJrSmLVi_rOj-U6CgjT-zHQ_bfL', {action: 'homepage'});
+    // IMPORTANT: The 'token' that results from execute is an encrypted response sent by
+    // reCAPTCHA Enterprise to the end user's browser.
+    // This token must be validated by creating an assessment.
+    // See https://cloud.google.com/recaptcha-enterprise/docs/create-assessment
+  });
+</script>
 <div class="form">
     <div class="form-tytul">
         <span class="tytul2"><h2>Logowanie</h2></span>
@@ -16,9 +24,9 @@
                   <label for="password"><span class="tekst2">Hasło</span></label>
                   <input type="password" class="pole4" id="password" name="password" placeholder="Password" autocomplete="new-password">
               </div>
-        <div class="g-recaptcha" data-sitekey="6LebTSYmAAAAAOJrSmLVi_rOj-U6CgjT-zHQ_bfL"></div>
+
         <button class="reset" type="reset">Reset</button>
-        <input type="submit" value="Zaloguj się">
+        <button class="submit" >Submit</button>
         </div>
         <br><br><br>
     </form>
