@@ -129,7 +129,7 @@ def delete_obiekt(obiekt_id):
     conn.commit()
     del conn
 
-def dodaj_obiekt_baza(nazwa, klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, pilne,  zrobione):
+def dodaj_obiekt_baza(nazwa, klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, pilne, zrobione):
     conn = DbConnection()
     sql = '''
         INSERT INTO Obiekt (Nazwa, Klient, Ulica, Numer_Budynku, Kod_Pocztowy, Miasto, Osoba_Kontaktowa, Numer_Kontaktowy, Czynnosc, Ilosc_Bram, Uwagi, Pilne, Zrobione)
@@ -145,7 +145,6 @@ def get_user_by_username(username):
     sql = "SELECT * FROM users WHERE username = %s"
     conn.execute(sql, (username,))
     user_data = conn.getData()
-
     if user_data:
         user_id = user_data[0][0]
         password = user_data[0][2]

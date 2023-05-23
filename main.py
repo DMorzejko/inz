@@ -186,8 +186,8 @@ def nowy_obiekt():
         czynnosc = request.form['czynnosc']
         ilosc_bram = request.form['ilosc_bram']
         uwagi = request.form['uwagi']
-        pilne = request.form['pilne']
-        zrobione = request.form['zrobione']
+        pilne = request.form.get('pilne', 'NIE')
+        zrobione = request.form.get('zrobione', 'NIE')
 
         dodaj_obiekt_baza(nazwa, klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, pilne, zrobione)
         return redirect(url_for('W_tabela'))
