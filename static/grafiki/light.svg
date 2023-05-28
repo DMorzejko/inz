@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X7 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="54mm" height="54mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 5400 5400"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#2B2A29;stroke-width:100;stroke-linecap:round;stroke-linejoin:round}
+    .str1 {stroke:#2B2A29;stroke-width:75;stroke-linecap:round;stroke-linejoin:round}
+    .fil0 {fill:none}
+    .fil2 {fill:#2B2A29}
+    .fil1 {fill:#2B2A29;fill-rule:nonzero}
+    .fil3 {fill:#FFED00;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ <g id="Warstwa_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <rect class="fil0" width="5400" height="5400"/>
+  <path class="fil1" d="M2293 3857c-399,-746 -887,-1242 -887,-1738 0,-700 324,-1400 1294,-1400 970,0 1294,700 1294,1400 0,496 -488,992 -887,1738l-814 0z"/>
+  <rect class="fil2" x="2177" y="3914" width="1045" height="222" rx="80" ry="80"/>
+  <rect class="fil2" x="2289" y="4193" width="822" height="117" rx="63" ry="42"/>
+  <rect class="fil2" x="2289" y="4366" width="822" height="117" rx="63" ry="42"/>
+  <rect class="fil2" x="2289" y="4540" width="822" height="117" rx="63" ry="42"/>
+  <path class="fil1" d="M2540 4999l320 0 159 -286 -638 0 159 286zm160 0m239 -143m-239 -143m-239 143"/>
+  <path class="fil3" d="M2340 3700c-354,-671 -785,-1118 -785,-1564 0,-630 286,-1260 1145,-1260 859,0 1145,630 1145,1260 0,446 -431,893 -785,1564l-720 0z"/>
+  <path class="fil0 str0" d="M3030 1094c469,221 665,604 582,1153"/>
+  <line class="fil0 str1" x1="4622" y1="711" x2="4028" y2= "1104" />
+  <line class="fil0 str1" x1="4295" y1="443" x2="3932" y2= "932" />
+  <line class="fil0 str1" x1="4760" y1="1145" x2="4168" y2= "1288" />
+ </g>
+</svg>
