@@ -55,6 +55,8 @@
                 const body = document.body;
                 const modeToggle = document.getElementById('mode-toggle');
                 const table = document.getElementById('myTable');
+                const table2 = document.getElementById('myTable2');
+                const logo = document.getElementById('myLogo');
 
                 // Sprawdź aktualny tryb
                 const currentMode = body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode';
@@ -69,7 +71,10 @@
                 // Zaktualizuj klasę tabeli
                 table.classList.remove(currentMode === 'dark-mode' ? 'table-dark' : 'table-succes');
                 table.classList.add(currentMode === 'dark-mode' ? 'table-succes' : 'table-dark');
-
+                table2.classList.remove(currentMode === 'dark-mode' ? 'table-dark' : 'table-succes');
+                table2.classList.add(currentMode === 'dark-mode' ? 'table-succes' : 'table-dark');
+                logo.classList.remove(currentMode === 'dark-mode' ? 'logo-dark' : 'logo-light');
+                logo.classList.add(currentMode === 'dark-mode' ? 'logo-light' : 'logo-dark');
 
                 // Zapisz aktualny tryb w lokalnym magazynie przeglądarki
                 localStorage.setItem('mode', newMode);

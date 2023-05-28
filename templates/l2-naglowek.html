@@ -1,10 +1,13 @@
+{% set currentMode = mode %}
 <!-- NAGLOWEK -->
 <div class="naglowek">
   <div class="nag">
     <table class="naglowek-tab">
       <tr>
         <td class="td-nag td-n1">
-          <a href="/"><img class="i_logo" src="/static/grafiki/logo.svg" alt="Logo Serwis"></a>
+          <a href="/">
+              <img class="i_logo" id="myLogo" src="/static/grafiki/{% if currentMode == 'light-mode' %}logo-light{% else %}logo-dark{% endif %}.svg" alt="Logo Serwis">
+          </a>
         </td>
         <td class="td-nag td-n2"><span class="serwis">SERWIS BRAM <br> PRZECIWPOŻAROWYCH</span></td>
         <td class="td-nag td-n3">

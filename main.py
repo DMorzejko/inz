@@ -150,7 +150,7 @@ def W_tabela():
 
 
     tabela_html = render_template('tabela.html', mode=currentMode, wynik=wynik, id=id)
-    return wyswietl(1, ["Tabela obiektów", tabela_html, ['']])
+    return wyswietl(1, ["Tabela obiektów", tabela_html, ['style.css']])
 
 @aplikacja.route('/mapa')
 @login_required

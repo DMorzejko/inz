@@ -101,6 +101,10 @@ body {
     width: 150px;
     height: 150px;
 }
+.i_logo svg {
+    fill: #000000;
+}
+
 
 .naglowek_tekst {
     font-family: 'Poppins';
@@ -191,7 +195,7 @@ h1 {
 .projekt {
     position: absolute;
     left: 20%;
-    top: 15%;
+    top: 20%;
 }
 
 /* Ustawiając szerokość i wysokość mapy na 100% sprawia, że zajmuje ona całą dostępną przestrzeń */
@@ -227,5 +231,19 @@ h1 {
   display: inline;
 }
 
+.table-container {
+  max-height: 700px;
+  overflow: hidden;
+}
 
+.table-container .table-scroll {
+  max-height: 700px;
+  overflow-y: auto;
+}
 
+.table-container .table-header {
+  position: sticky;
+  top: 0;
+
+  z-index: 1;
+}

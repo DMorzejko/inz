@@ -54,33 +54,54 @@ function deleteSelectedObiekt() {
   </button>
   <button name="edytuj" id="button_edytuj" type="edit" class="btn btn-light btn-lg" onclick="editSelectedObiekt()">Edytuj / Pokaż</button>
   <button name="usun" id="button_usun" type="button" class="btn btn-light btn-lg" onclick="deleteSelectedObiekt()">Usuń</button>
-  <br>
-  {{ table_class }}<br>
 
-    <!-- Koniec informacji debugowych -->
-  <table id="myTable" class="table table-striped {% if currentMode == 'light-mode' %}table-succes{% else %}table-dark{% endif %}">
-    <tr>
-      <td>Zaznacz</td>
-      <td>Nazwa Obiektu</td>
-      <td>Klient</td>
-      <td>Ulica</td>
-      <td>Numer budynku</td>
-      <td>Kod Pocztowy</td>
-      <td>Miasto</td>
-      <td>Czynność</td>
-      <td>Ilość Bram</td>
-      <td>Uwagi</td>
-      <td>Pilne</td>
-      <td>Zrobione?</td>
-    </tr>
-    {% for obiekt in wynik %}
-      <tr>
-        <td><input type="checkbox" id="checkbox_{{ obiekt[0] }}" name="checkbox_{{ obiekt[0] }}" style="transform: scale(1.8);"><span></span></td>
-        {% for pole in obiekt[1:] %}
-          <td>{{ pole }}</td>
+
+  <div class="table-container">
+    <table id="myTable" class="table table-striped {% if currentMode == 'light-mode' %}table-succes{% else %}table-dark{% endif %} table-header">
+        <tr>
+          <td>Zaznacz</td>
+          <td>Nazwa Obiektu</td>
+          <td>Klient</td>
+          <td>Ulica</td>
+          <td>Numer budynku</td>
+          <td>Kod Pocztowy</td>
+          <td>Miasto</td>
+          <td>Czynność</td>
+          <td>Ilość Bram</td>
+          <td>Uwagi</td>
+          <td>Pilne</td>
+          <td>Zrobione?</td>
+        </tr>
+    </table>
+    <div class="table-scroll">
+      <table id="myTable2" class="table table-striped {% if currentMode == 'light-mode' %}table-succes{% else %}table-dark{% endif %}">
+        {% for obiekt in wynik %}
+          <tr>
+            <td><input type="checkbox" id="checkbox_{{ obiekt[0] }}" name="checkbox_{{ obiekt[0] }}" style="transform: scale(1.8);"><span></span></td>
+            {% for pole in obiekt[1:] %}
+              <td>{{ pole }}</td>
+            {% endfor %}
+          </tr>
         {% endfor %}
-      </tr>
-    {% endfor %}
-  </table>
+      </table>
+    </div>
+  </div>
 </div>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+  adjustHeaderWidths();
+});
+
+function adjustHeaderWidths() {
+  const headerTable = document.getElementById('myTable');
+  const dataTable = document.getElementById('myTable2');
+  const headerColumns = headerTable.getElementsByTagName('td');
+  const dataColumns = dataTable.getElementsByTagName('td');
+
+  for (let i = 0; i < headerColumns.length; i++) {
+    const dataWidth = dataColumns[i].offsetWidth;
+    headerColumns[i].style.width = `${dataWidth}px`;
+  }
+}
+</script>
 
