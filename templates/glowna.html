@@ -1,0 +1,11 @@
+  <div class="projekt">
+        <h3>Witaj na stronie poświęconej pracy inżynierskiej Daniela Morzejko.</h3>
+        <p>Strona ta, jest serwisem webowym wspierającym pracę serwisu bram przeciwpożarowych.</p>
+        {% if username %}
+            <p>Zalogowany użytkownik: {{ username }}</p>
+            <p>Zakończona praca? <a href="/wyloguj"><span class="naglowek_tekst">wyloguj</span></a></p>
+
+        {% else %}
+            <p>Aby zacząć, kliknij w <a href="/logowanie"><span class="naglowek_tekst">Logowanie</span></a></p>
+        {% endif %}
+    </div>

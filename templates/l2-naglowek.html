@@ -6,8 +6,13 @@
         <td class="td-nag td-n1">
           <a href="/"><img class="i_logo" src="/static/grafiki/logo.svg" alt="Logo Serwis"></a>
         </td>
-        <td class="td-nag td-n2"><span class="serwis">Serwis Bram <br> Przeciwpożarowych</span></td>
-        <td class="td-nag td-n3"><span class="naglowek_tekst"> </span></td>
+        <td class="td-nag td-n2"><span class="serwis">SERWIS BRAM <br> PRZECIWPOŻAROWYCH</span></td>
+        <td class="td-nag td-n3">
+            <a href="#" onclick="toggleMode()">
+            <img src="{{ url_for('static', filename='grafiki/light.svg') }}" alt="Tryb jasny" id="light-bulb" class="bulb-img">
+            <img src="{{ url_for('static', filename='grafiki/dark.svg') }}" alt="Tryb ciemny" id="dark-bulb" class="bulb-img">
+            </a>
+</td>
         <td class="td-nag td-n5"><a href="/tabela"><span class="naglowek_tekst">Tabela</span></a></td>
         <td class="td-nag td-n5"><a href="/mapa"><span class="naglowek_tekst">Mapa</span></a></td>
         <td class="td-nag td-n2"><a href="/projekt"><span class="naglowek_tekst">O projekcie</span></a></td>
@@ -16,38 +21,7 @@
       </tr>
     </table>
   </div>
-  <button id="mode-toggle" onclick="toggleMode()">Tryb jasny</button>
+
 </div>
-<script>
-  // Pobierz aktualny tryb z lokalnego magazynu przeglądarki
-  const currentMode = localStorage.getItem('mode');
 
-  // Jeśli tryb jest ustawiony, ustaw odpowiednie style dla strony
-  if (currentMode) {
-    document.body.classList.add(currentMode);
-    const modeToggle = document.getElementById("mode-toggle");
-    modeToggle.textContent = currentMode === "dark" ? "Tryb jasny" : "Tryb ciemny";
-  }
-
-  function toggleMode() {
-    const body = document.body;
-    const modeToggle = document.getElementById("mode-toggle");
-
-    // Sprawdź aktualny tryb
-    const currentMode = body.classList.contains("dark") ? "dark" : "light";
-
-    // Zmień tryb na przeciwny
-    const newMode = currentMode === "dark" ? "light" : "dark";
-
-    // Zaktualizuj klasę body
-    body.classList.remove(currentMode);
-    body.classList.add(newMode);
-
-    // Zapisz aktualny tryb w lokalnym magazynie przeglądarki
-    localStorage.setItem("mode", newMode);
-
-    // Zaktualizuj tekst na przycisku
-    modeToggle.textContent = newMode === "dark" ? "Tryb jasny" : "Tryb ciemny";
-  }
-</script>
 <!-- NAGLOWEK -->

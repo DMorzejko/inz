@@ -27,7 +27,6 @@ def info():
            Promotor: Dr Hab. Inż. Marek Rydel</div>'
 
 def glowna():
-    return """<div class="projekt"><h3>Witaj na stronie poświęconej pracy inżynierskiej Daniela Morzejko.</h3> \
-           Strona ta, jest serwisem webowym wspierającym pracę serwisu bram przeciwpożarowych.<br> \
-           Aby zacząć, kliknij w Logowanie</div>"""
+    username = session.get('username')  # Pobierz nazwę zalogowanego użytkownika z sesji
+    return render_template('glowna.html', username=username)
 

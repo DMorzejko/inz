@@ -1,16 +1,21 @@
 # Funkcje łączące do bazy danych - wyświetlanie, wstawienie, usuwanie, itp.
 from flask import *
 
+
 baza = Blueprint('baza', __name__)
 import mysql.connector
 
 # Pobiera "surowe" dane z funkcji tabelaBaza() i wyswietla w tabelce
-def tabela():
+def tabela(currentMode):
     wynik = tabelaBaza()
     id = tabelaBazaId()
 
+
+    table_class = "Tabela-obiektow table table-success table-striped" if currentMode == "light-mode" else "Tabela-obiektow table table-striped table-dark"
+
     i=0
     nowy_obiekt_url = url_for('nowy_obiekt')
+    html = render_template('l2-strona.html', mode=currentMode)
     html = """
     <script>
     function editSelectedObiekt() {
@@ -56,13 +61,18 @@ def tabela():
             </div>
             <div class="przyciski"><br>
             <br>"""
-    html += f"""<br><br><br>
-            <a href="{nowy_obiekt_url}" class="btn btn-light btn-lg"><span class="link">Dodaj Obiekt</span></a>            <button name="edytuj" id="button_edytuj" type="edit" class="btn btn-light btn-lg" onclick="editSelectedObiekt()">Edytuj / Pokaż</button>
+    html += f"""
+            <button class="btn btn-light btn-lg" onclick="location.href='{url_for('nowy_obiekt')}'">
+    <span class="link">Dodaj Obiekt</span>
+</button>            <button name="edytuj" id="button_edytuj" type="edit" class="btn btn-light btn-lg" onclick="editSelectedObiekt()">Edytuj / Pokaż</button>
             """
     html += """
             <button name="usun" id="button_usun" type="button" class="btn btn-light btn-lg" onclick="deleteSelectedObiekt()">Usuń</button>
-            <br>
-           "<table class=\"Tabela-obiektow table table-success table-striped\">\n"""
+            <br>"""
+    # Określanie klasy dla tabeli w zależności od trybu
+    html += f"<table class=\"{table_class}\">\n"
+
+
     html += "<tr><td>Zaznacz</td><td>Nazwa Obiektu</td><td>Klient</td><td>Ulica</td><td>Numer budynku</td><td>Kod Pocztowy</td>" \
             "<td>Miasto</td><td>Czynność</td><td>Ilość Bram</td><td>Uwagi</td><td>Pilne</td><td>Zrobione?</td></tr>\n"
     for obiekt in wynik:

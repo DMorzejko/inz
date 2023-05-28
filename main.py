@@ -73,6 +73,7 @@ def create_assessment(
 
 aplikacja = Flask(__name__)
 aplikacja.secret_key = 'tajny_klucz'
+aplikacja.config["TEMPLATE_ENGINE"] = "jinja2"
 
 login_manager = LoginManager()
 login_manager.init_app(aplikacja)
@@ -90,7 +91,10 @@ def verify_login_credentials(username, password):
 
 @aplikacja.route("/")
 def index():
-    return wyswietl(1, ["Inz", glowna(), ['']])
+    username = session.get('username')  # Pobierz nazwę zalogowanego użytkownika z sesji
+
+    return wyswietl(1, ["Inz", glowna(), ['style.css']], username=username)
+
 
 @aplikacja.route('/logowanie', methods=['GET', 'POST'])
 def W_logowanie():
@@ -101,9 +105,13 @@ def W_logowanie():
         if verify_login_credentials(username, password):
             user = get_user_by_username(username)
             login_user(user)
+
+            session['username'] = username  # Zapisz nazwę użytkownika w sesji
+
             return redirect(url_for('index'))
         else:
-            return 'Błąd logowania', 401
+            error_message = 'Błąd logowania'
+            return render_template('blad_logowania.html', error_message=error_message)
 
     else:
         return wyswietl(1, ["Logowanie", logowanie(), ['']])
@@ -112,6 +120,7 @@ def W_logowanie():
 @login_required
 def wyloguj():
     logout_user()
+    session.pop('username', None)
     return redirect(url_for('W_logowanie'))
 
 @aplikacja.route('/projekt')
@@ -121,7 +130,12 @@ def W_projekt():
 @aplikacja.route('/tabela')
 @login_required
 def W_tabela():
-    return wyswietl(1, ["Tabela obiektów", tabela(), ['']])
+    # Kod obsługi żądania HTTP
+    currentMode = "light-mode"  # Przykładowa wartość trybu
+
+    # Wywołanie funkcji tabela() z przekazaniem currentMode jako argument
+    tabela_html = tabela(currentMode)
+    return wyswietl(1, ["Tabela obiektów",  tabela_html, ['']])
 
 @aplikacja.route('/mapa')
 @login_required
