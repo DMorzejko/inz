@@ -1,37 +1,86 @@
-<!-- TABELA -->
+{% set currentMode = mode %}
+<script>
+
+
+
+function editSelectedObiekt() {
+  var checkboxes = document.querySelectorAll('input[type=checkbox]');
+  var selectedId = null;
+
+  for (var i = 0; i < checkboxes.length; i++) {
+    if (checkboxes[i].checked) {
+      selectedId = checkboxes[i].id.replace('checkbox_', '');
+      break;
+    }
+  }
+
+  if (selectedId !== null) {
+    location.href = '/edit/' + selectedId;
+  } else {
+    alert('Proszę zaznaczyć obiekt do edycji.');
+  }
+}
+
+function deleteSelectedObiekt() {
+  var checkboxes = document.querySelectorAll('input[type=checkbox]');
+  var selectedId = null;
+
+  for (var i = 0; i < checkboxes.length; i++) {
+    if (checkboxes[i].checked) {
+      selectedId = checkboxes[i].id.replace('checkbox_', '');
+      break;
+    }
+  }
+
+  if (selectedId !== null) {
+    if (confirm('Czy na pewno chcesz usunąć ten obiekt?')) {
+      location.href = '/delete/' + selectedId;
+    }
+  } else {
+    alert('Proszę zaznaczyć obiekt do usunięcia.');
+  }
+}
+</script>
+
 <div class="form-tytul">
-    <br>
-    <span class="tytul2"><h2>Tabela obiektów</h2></span>
+  <span class="tytul2"><h2>Tabela obiektów</h2></span>
 </div>
 
-<div class="przyciski"><br>
-    <br>
-    <a href="{{ url_for('routes.dodaj_obiekt') }}" class="btn btn-light btn-lg"><span class="link">Dodaj Obiekt</span></a>
-    <button name="edytuj" id="button_edytuj" type="edit" class="btn btn-light btn-lg" onclick="editSelectedObiekt()">Edytuj / Pokaż</button>
-    <a href="{{ url_for('routes.delete_obiekt_route', obiekt_id=obiekt.Id) }}" class="btn btn-light btn-lg" onclick="return confirm('Czy na pewno chcesz usunąć ten obiekt?');">Usuń</a>
-    <br><br>
-</div>
+<div class="przyciski">
+  <br>
+  <br>
+  <button class="btn btn-light btn-lg" onclick="location.href='{{ url_for('nowy_obiekt') }}'">
+    <span class="link">Dodaj Obiekt</span>
+  </button>
+  <button name="edytuj" id="button_edytuj" type="edit" class="btn btn-light btn-lg" onclick="editSelectedObiekt()">Edytuj / Pokaż</button>
+  <button name="usun" id="button_usun" type="button" class="btn btn-light btn-lg" onclick="deleteSelectedObiekt()">Usuń</button>
+  <br>
+  {{ table_class }}<br>
 
-<table class="Tabela-obiektow table table-success table-striped">
+    <!-- Koniec informacji debugowych -->
+  <table id="myTable" class="table table-striped {% if currentMode == 'light-mode' %}table-succes{% else %}table-dark{% endif %}">
     <tr>
-        <td>Zaznacz</td>
-        <td>Nazwa Obiektu</td>
-        <td>Klient</td>
-        <td>Ulica</td>
-        <td>Numer budynku</td>
-        <td>Kod Pocztowy</td>
-        <td>Miasto</td>
-        <td>Czynność</td>
-        <td>Ilość Bram</td>
-        <td>Uwagi</td>
-        <td>Zrobione?</td>
+      <td>Zaznacz</td>
+      <td>Nazwa Obiektu</td>
+      <td>Klient</td>
+      <td>Ulica</td>
+      <td>Numer budynku</td>
+      <td>Kod Pocztowy</td>
+      <td>Miasto</td>
+      <td>Czynność</td>
+      <td>Ilość Bram</td>
+      <td>Uwagi</td>
+      <td>Pilne</td>
+      <td>Zrobione?</td>
     </tr>
     {% for obiekt in wynik %}
-        <tr>
-            <td><input type="checkbox" id="checkbox_{{ obiekt[0] }}" name="checkbox_{{ obiekt[0] }}"><span></span></td>
-            {% for pole in obiekt[1:] %}
-                <td>{{ pole }}</td>
-            {% endfor %}
-        </tr>
+      <tr>
+        <td><input type="checkbox" id="checkbox_{{ obiekt[0] }}" name="checkbox_{{ obiekt[0] }}" style="transform: scale(1.8);"><span></span></td>
+        {% for pole in obiekt[1:] %}
+          <td>{{ pole }}</td>
+        {% endfor %}
+      </tr>
     {% endfor %}
-</table>
+  </table>
+</div>
+

@@ -54,6 +54,7 @@
             function toggleMode() {
                 const body = document.body;
                 const modeToggle = document.getElementById('mode-toggle');
+                const table = document.getElementById('myTable');
 
                 // Sprawdź aktualny tryb
                 const currentMode = body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode';
@@ -65,8 +66,10 @@
                 body.classList.remove(currentMode);
                 body.classList.add(newMode);
 
-                // Zaktualizuj tekst na przycisku
-                modeToggle.textContent = newMode === 'dark-mode' ? 'Tryb jasny' : 'Tryb ciemny';
+                // Zaktualizuj klasę tabeli
+                table.classList.remove(currentMode === 'dark-mode' ? 'table-dark' : 'table-succes');
+                table.classList.add(currentMode === 'dark-mode' ? 'table-succes' : 'table-dark');
+
 
                 // Zapisz aktualny tryb w lokalnym magazynie przeglądarki
                 localStorage.setItem('mode', newMode);

@@ -4,6 +4,7 @@ from baza import User, get_user_by_id, get_user_by_username
 from layout import *
 from funkcje import *
 import requests
+from baza import tabelaBaza, tabelaBazaId
 
 '''from google.cloud import recaptchaenterprise_v1
 from google.cloud.recaptchaenterprise_v1 import Assessment
@@ -127,7 +128,7 @@ def wyloguj():
 def W_projekt():
     return wyswietl(1, ["Logowanie", info(), ['']])
 
-@aplikacja.route('/tabela')
+'''@aplikacja.route('/tabela')
 @login_required
 def W_tabela():
     # Kod obsługi żądania HTTP
@@ -135,7 +136,21 @@ def W_tabela():
 
     # Wywołanie funkcji tabela() z przekazaniem currentMode jako argument
     tabela_html = tabela(currentMode)
-    return wyswietl(1, ["Tabela obiektów",  tabela_html, ['']])
+    return wyswietl(1, ["Tabela obiektów",  tabela_html, ['']])'''
+
+
+
+@aplikacja.route('/tabela')
+@login_required
+def W_tabela():
+    currentMode = "dark-mode"  # Przykładowa wartość trybu
+
+    wynik = tabelaBaza()
+    id = tabelaBazaId()
+
+
+    tabela_html = render_template('tabela.html', mode=currentMode, wynik=wynik, id=id)
+    return wyswietl(1, ["Tabela obiektów", tabela_html, ['']])
 
 @aplikacja.route('/mapa')
 @login_required

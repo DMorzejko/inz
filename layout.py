@@ -20,6 +20,7 @@ def layoutt(args, username=None):
 
 # Wyświetlenie całej strony - wybranie layout'u + treść
 def wyswietl(layout, args, username=None):
+
     if layout == 1:
         return layoutt(args, username)
     else:

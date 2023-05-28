@@ -6,7 +6,7 @@ baza = Blueprint('baza', __name__)
 import mysql.connector
 
 # Pobiera "surowe" dane z funkcji tabelaBaza() i wyswietla w tabelce
-def tabela(currentMode):
+'''def tabela(currentMode):
     wynik = tabelaBaza()
     id = tabelaBazaId()
 
@@ -81,7 +81,7 @@ def tabela(currentMode):
             html += """<td>""" + str(pole) + "</td>"
         html += "</tr>\n"
     html += "</table>\n"
-    return html
+    return html'''
 
 
 def tabelaBaza():
