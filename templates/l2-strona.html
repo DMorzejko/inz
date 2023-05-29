@@ -5,7 +5,8 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+              rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
         {{ css|safe }}
         {% if title %}
             <title>{{ title }}</title>
@@ -21,7 +22,6 @@
                 });
             }
         </script>
-
     </head>
     <body class="body {{ currentMode }}">
         {{ naglowek|safe }}
@@ -35,9 +35,7 @@
             </div>
         </div>
         <!-- uklad 2 kolumn - menu i obszar glowny -->
-
         {{ stopka|safe }}
-
         <script>
             // Pobierz aktualny tryb z lokalnego magazynu przeglądarki
             let currentMode = localStorage.getItem('mode');
@@ -47,7 +45,6 @@
                 currentMode = 'light-mode';
                 localStorage.setItem('mode', currentMode);
             }
-
             // Ustaw odpowiednie style dla strony
             document.body.classList.add(currentMode);
 
@@ -68,7 +65,7 @@
                 body.classList.remove(currentMode);
                 body.classList.add(newMode);
 
-                // Zaktualizuj klasę tabeli
+                // Zaktualizuj klasę tabel i logo
                 table.classList.remove(currentMode === 'dark-mode' ? 'table-dark' : 'table-succes');
                 table.classList.add(currentMode === 'dark-mode' ? 'table-succes' : 'table-dark');
                 table2.classList.remove(currentMode === 'dark-mode' ? 'table-dark' : 'table-succes');

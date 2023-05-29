@@ -46,7 +46,7 @@ function deleteSelectedObiekt() {
   <span class="tytul2"><h2>Tabela obiektów</h2></span>
 </div>
 
-<div class="przyciski">
+<div>
   <br>
   <br>
   <button class="btn btn-light btn-lg" onclick="location.href='{{ url_for('nowy_obiekt') }}'">
@@ -54,8 +54,6 @@ function deleteSelectedObiekt() {
   </button>
   <button name="edytuj" id="button_edytuj" type="edit" class="btn btn-light btn-lg" onclick="editSelectedObiekt()">Edytuj / Pokaż</button>
   <button name="usun" id="button_usun" type="button" class="btn btn-light btn-lg" onclick="deleteSelectedObiekt()">Usuń</button>
-
-
   <div class="table-container">
     <table id="myTable" class="table table-striped {% if currentMode == 'light-mode' %}table-succes{% else %}table-dark{% endif %} table-header">
         <tr>

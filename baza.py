@@ -84,6 +84,10 @@ import mysql.connector
     return html'''
 
 
+
+
+
+
 def tabelaBaza():
     conn = DbConnection()
     sql = "SELECT Id, Nazwa, Klient, Ulica, Numer_Budynku, Kod_pocztowy, " \
@@ -94,9 +98,19 @@ def tabelaBaza():
     del conn
     return result
 
+def tabelaBazaId():
+    conn = DbConnection()
+    sql = "SELECT Id from Obiekt  order by Nazwa;"
+    conn.execute(sql)
+    result = conn.getData()
+    del conn
+    return result
+
 def list_to_dict(obiekt_list):
-    keys = ['Id', 'Nazwa', 'Klient', 'Ulica', 'Numer_Budynku', 'Kod_Pocztowy', 'Miasto', 'Osoba_Kontaktowa', 'Numer_Kontaktowy', 'Czynnosc', 'Ilosc_Bram', 'Uwagi', 'Pilne', 'Zrobione']
+    keys = ['Id', 'Nazwa', 'Klient', 'Ulica', 'Numer_Budynku', 'Kod_Pocztowy', 'Miasto', 'Osoba_Kontaktowa',\
+           'Numer_Kontaktowy', 'Czynnosc', 'Ilosc_Bram', 'Uwagi', 'Pilne', 'Zrobione']
     return {keys[i]: obiekt_list[i] for i in range(len(keys))}
+
 def get_obiekt_by_id(obiekt_id):
     conn = DbConnection()
     sql = "SELECT * FROM Obiekt WHERE Id = %s;"
@@ -109,19 +123,8 @@ def get_obiekt_by_id(obiekt_id):
 
     if obiekt is not None:
         obiekt = list_to_dict(obiekt)
-
-    # Wydrukuj zwracany obiekt
-    print("Zwracany obiekt:", obiekt)
-
     return obiekt
-def tabelaBazaId():
-    conn = DbConnection()
-    sql = "SELECT Id from Obiekt  order by Nazwa;"
-    conn.execute(sql)
-    result = conn.getData()
-    print(result[0])
-    del conn
-    return result
+
 def update_obiekt(obiekt_id, updated_data):
     conn = DbConnection()
     sql = """UPDATE Obiekt SET Nazwa=%s, Klient=%s, Ulica=%s, Numer_Budynku=%s,
@@ -138,6 +141,7 @@ def delete_obiekt(obiekt_id):
     conn.execute(sql, (obiekt_id,))
     conn.commit()
     del conn
+
 
 def dodaj_obiekt_baza(nazwa, klient, ulica, numer_budynku, kod_pocztowy, miasto, osoba_kontaktowa, numer_kontaktowy, czynnosc, ilosc_bram, uwagi, pilne, zrobione):
     conn = DbConnection()
