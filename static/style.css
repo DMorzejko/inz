@@ -202,7 +202,8 @@ h1 {
 #map {
     width: 100%;
     height: 80%;
-    margin-top: 15%;
+    margin-top: 20%;
+    color: #212529;
 }
 
 /* Style dla kontenera, który obejmuje mapę */
